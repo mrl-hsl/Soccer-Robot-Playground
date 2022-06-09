@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <unistd.h>
+#include <string>
 using namespace cv;
 using namespace std;
 //=================================
@@ -10,17 +11,40 @@ class base{
     protected:
         Mat world;
         int base_size;
+        int mode;
     public:
+        int set_mode();
         void set_feild_size();
         base(int size=1000):base_size(size){}
         base(const base &b){ base_size=b.base_size; }
         ~base(){}
 
 };
+//===============================
+int base :: set_mode() {
+    while(true) {
+
+        cout<<"1:manual mode\n2:automatic mode\n3:exit\n";
+        cin>>mode;
+
+        if (mode == 1 || mode == 2)
+            break;
+
+        else if (mode == 3)
+            return 0;
+
+        else {
+            cout<<"\nWrong mode Try another key !!\n\n";
+            continue;
+        }
+    }
+    return 0;
+}
+//===============================
 void base :: set_feild_size() {
     int size=1000;
-    cout<<"Enter base feild size : ";
-    cin>>size;
+    //cout<<"Enter base feild size : ";
+    //cin>>size;
     base_size = size;
     world = Mat( size*8/11 , size , CV_8UC3 , Scalar(0,0,0) );
 //===============================
@@ -45,6 +69,7 @@ void base :: set_feild_size() {
     Point r_goal_finish(base_size * 1/11 , base_size * 5.3/11);
     Point l_goal_start(base_size * 10/11 , base_size * 2.7/11);
     Point l_goal_finish(base_size * 10.6/11 , base_size * 5.3/11);
+    Point mode_position(base_size * 4/11 , base_size * 0.5/11);
     //creat feild shapes
     rectangle(world, base_start , base_finish , Scalar(255,255,255) , 2, 8, 0);
     rectangle(world, feild_start , feild_finish , Scalar(255,255,255) , 2, 8, 0);
@@ -57,6 +82,12 @@ void base :: set_feild_size() {
     rectangle(world, r_goal_start , r_goal_finish ,Scalar(255,255,0) , 2, 8, 0);
     rectangle(world, r_goalarea_start , r_goalarea_finish , Scalar(255,255,255) , 2, 8, 0);
     rectangle(world, l_goalarea_start , l_goalarea_finish , Scalar(255,255,255) , 2, 8, 0);
+
+    if(mode == 1)
+        putText(world, ".:: Manual Movement ::.", mode_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+    else 
+        putText(world, ".:: Automatic Movement ::.", mode_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+
 }
 //=================================
 class robot : public base {
@@ -77,10 +108,11 @@ class robot : public base {
         void set_data();
         void robot_shape();
         double Radian(double);
-        int display_robot_automatic();
-        int display_robot_manual();
+        int robot_automatic();
+        int robot_manual();
         int check_boudary();
         void check_speed();
+        void display();
 };
 //=================================
 void robot :: set_data() {
@@ -116,6 +148,23 @@ void robot :: robot_shape() {
     left_y = center_y + robot_size * sin(Radian(robot_angel + 140));
     Point left(left_x, left_y);
 
+    //declaring info point
+    Point x_position(base_size * 1/11 , base_size * 7.3/11);
+    Point y_position(base_size * 1/11 , base_size * 7.6/11);
+    Point x_info(base_size * 2.1/11 , base_size * 7.3/11);
+    Point y_info(base_size * 2.1/11 , base_size * 7.6/11);
+    string x_string = to_string(center_x);
+    string y_string = to_string(center_y);
+
+    Point move_speed_position(base_size * 4/11 , base_size * 7.3/11);
+    Point rotate_speed_position(base_size * 4/11 , base_size * 7.6/11);
+    Point move_info(base_size * 5.7/11 , base_size * 7.3/11);
+    Point rotate_info(base_size * 6.1/11 , base_size * 7.6/11);
+    string move_string = to_string(move_speed);
+    string rotate_string = to_string(rotation_speed);
+
+    //=========================
+
     //creat main lines of Arrow
     line(Arrow, main,rigth, Scalar(0,0,240), 2, 8, 0);
     line(Arrow, left, main, Scalar(0,0,240), 2, 8, 0);
@@ -123,6 +172,18 @@ void robot :: robot_shape() {
     //creat sub lines
     line(Arrow, center, left, Scalar(0,0,240), 2, 8, 0);
     line(Arrow, rigth, center, Scalar(0,0,240), 2, 8, 0);
+
+    //info section
+    putText(Arrow, "Pivot X : ", x_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
+    putText(Arrow, x_string , x_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
+    putText(Arrow, "Pivot Y : ", y_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
+    putText(Arrow, y_string , y_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
+
+    if(mode == 1)
+    putText(Arrow, "Move Speed : ", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+    putText(Arrow, move_string , move_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
+    putText(Arrow, "Rotation Speed : ", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+    putText(Arrow, rotate_string , rotate_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
 
     imshow("soccer feild",Arrow);
 }
@@ -132,7 +193,7 @@ double robot ::  Radian(double angel)
     return angel;
 }
 //=================================
-int robot :: display_robot_automatic() {
+int robot :: robot_automatic() {
     
     if(check_boudary()==0) {
 
@@ -181,11 +242,11 @@ int robot :: display_robot_automatic() {
         cout<<"\nMovement is out of feild !!\n";
     }
 
-    display_robot_automatic();
+    robot_automatic();
     return 0;
 }
 //=================================
-int robot :: display_robot_manual() {
+int robot :: robot_manual() {
     
     if(check_boudary()==0) {
 
@@ -220,7 +281,7 @@ int robot :: display_robot_manual() {
                 break;
             }
             default : cout<<"\nWrong key try again\n";
-            display_robot_manual();
+            robot_manual();
         }
     }
 
@@ -228,7 +289,7 @@ int robot :: display_robot_manual() {
         cout<<"\nMovement is out of feild !!\n";
     }
 
-    display_robot_manual();
+    robot_manual();
     return 0;
 }
 //=================================
@@ -273,21 +334,23 @@ void robot :: check_speed() {
     }
 }
 //=================================
+void robot :: display() {
+
+    if(mode == 1)
+        robot_manual();
+
+    else
+        robot_automatic();
+}
+//=================================
 int main()
 {
     robot r1;
-    int mode;
 
-    cout<<"1:manual mode\n2:automatic mode\n";
-    cin>>mode;
-
+    r1.set_mode();
     r1.set_feild_size();
     r1.set_data();
-
-    if(mode == 1)
-        r1.display_robot_manual();
-    else 
-        r1.display_robot_automatic();
+    r1.display();
 
     return 0;
 }
