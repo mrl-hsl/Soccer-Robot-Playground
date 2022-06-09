@@ -4,6 +4,7 @@
 #include <cmath>
 #include <unistd.h>
 #include <string>
+#include <iomanip>
 using namespace cv;
 using namespace std;
 //=================================
@@ -13,7 +14,7 @@ class base{
         int base_size;
         int mode;
     public:
-        int set_mode();
+        void set_mode();
         void set_feild_size();
         base(int size=1000):base_size(size){}
         base(const base &b){ base_size=b.base_size; }
@@ -21,7 +22,7 @@ class base{
 
 };
 //===============================
-int base :: set_mode() {
+void base :: set_mode() {
     while(true) {
 
         cout<<"1:manual mode\n2:automatic mode\n3:exit\n";
@@ -31,14 +32,13 @@ int base :: set_mode() {
             break;
 
         else if (mode == 3)
-            return 0;
+            exit(0);
 
         else {
             cout<<"\nWrong mode Try another key !!\n\n";
             continue;
         }
     }
-    return 0;
 }
 //===============================
 void base :: set_feild_size() {
@@ -153,8 +153,13 @@ void robot :: robot_shape() {
     Point y_position(base_size * 1/11 , base_size * 7.6/11);
     Point x_info(base_size * 2.1/11 , base_size * 7.3/11);
     Point y_info(base_size * 2.1/11 , base_size * 7.6/11);
-    string x_string = to_string(center_x);
-    string y_string = to_string(center_y);
+    string x_string = to_string(center_x/90 -1);
+    string y_string = to_string(center_y/90 -1);
+
+    /*float set_x,set_y;
+    ostringstream set_x;
+    cout<<x_string<<setprecision(2);*/
+    
 
     Point move_speed_position(base_size * 4/11 , base_size * 7.3/11);
     Point rotate_speed_position(base_size * 4/11 , base_size * 7.6/11);
@@ -174,16 +179,22 @@ void robot :: robot_shape() {
     line(Arrow, rigth, center, Scalar(0,0,240), 2, 8, 0);
 
     //info section
+    
     putText(Arrow, "Pivot X : ", x_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
     putText(Arrow, x_string , x_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
     putText(Arrow, "Pivot Y : ", y_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
     putText(Arrow, y_string , y_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
 
-    if(mode == 1)
-    putText(Arrow, "Move Speed : ", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
-    putText(Arrow, move_string , move_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
-    putText(Arrow, "Rotation Speed : ", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
-    putText(Arrow, rotate_string , rotate_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
+    if(mode == 1) {
+        putText(Arrow, "Const Move Speed : 5 deg/ml", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
+        putText(Arrow, "Const Rotation Speed : 10 px/ml", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
+    }
+    else {
+        putText(Arrow, "Move Speed : ", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+        putText(Arrow, move_string , move_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
+        putText(Arrow, "Rotation Speed : ", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+        putText(Arrow, rotate_string , rotate_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
+    }
 
     imshow("soccer feild",Arrow);
 }
@@ -255,12 +266,12 @@ int robot :: robot_manual() {
 
             case 97 :{
                 // change robot rotation
-                robot_angel -= 3;
+                robot_angel -= 5;
                 break;
             }
             case 100 :{
                 // change robot rotation
-                robot_angel += 3;
+                robot_angel += 5;
                 break;
             }
             case 119 :{
@@ -281,7 +292,6 @@ int robot :: robot_manual() {
                 break;
             }
             default : cout<<"\nWrong key try again\n";
-            robot_manual();
         }
     }
 
