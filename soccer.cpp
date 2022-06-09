@@ -18,7 +18,7 @@ class base{
 
 };
 void base :: set_feild_size() {
-    int size=1000;
+    int size;
     cout<<"Enter base feild size : ";
     cin>>size;
     base_size = size;
