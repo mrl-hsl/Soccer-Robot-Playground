@@ -129,11 +129,11 @@ double robot ::  Radian(double angel)
     return angel;
 }
 //=================================
-int robot :: display_robot_automatic(){
+int robot :: display_robot_automatic() {
     
-    if(check_boudary()==0){
+    if(check_boudary()==0) {
         robot_shape();
-        switch(waitKey(1)){
+        switch(waitKey(1)) {
 
             case 97 :{
                 // change robot rotation
@@ -170,7 +170,7 @@ int robot :: display_robot_automatic(){
             }
         }
         usleep(5000);
-        if(move_speed<=0){
+        if(move_speed<=0) {
             center_x -= 1 * -move_speed * cos(Radian(robot_angel));
             center_y -= 1 * -move_speed * sin(Radian(robot_angel));
         }
@@ -179,17 +179,61 @@ int robot :: display_robot_automatic(){
             center_y += 1 * move_speed * sin(Radian(robot_angel));
         }
         //====================
-        if(rotation_speed<=0){
+        if(rotation_speed<=0) {
             robot_angel += 1 * -rotation_speed;
         }
-        else if(rotation_speed>0){
+        else if(rotation_speed>0) {
             robot_angel -= 1 * rotation_speed;
         }
     }
-   else{
+   else {
         cout<<"\nMovement is out of feild !!\n";
     }
     display_robot_automatic();
+    return 0;
+}
+//=================================
+int robot :: display_robot_manual() {
+    
+    if(check_boudary()==0) {
+        robot_shape();
+        switch(waitKey(0)) {
+
+            case 97 :{
+                // change robot rotation
+                robot_angel -= 3;
+                break;
+            }
+            case 100 :{
+                // change robot rotation
+                robot_angel += 3;
+                break;
+            }
+            case 119 :{
+                // change robot position
+                center_x += 5 * cos(Radian(robot_angel));
+                center_y += 5 * sin(Radian(robot_angel));
+                break;
+            }
+            case 115 :{
+                // change robot position
+                center_x -= 5 * cos(Radian(robot_angel));
+                center_y -= 5 * sin(Radian(robot_angel));
+                break;
+            }
+            case 113 :{
+                // To quit the window
+                return 0;
+                break;
+            }
+            default : cout<<"\nWrong key try again\n";
+            display_robot_manual();
+        }
+    }
+   else {
+        cout<<"\nMovement is out of feild !!\n";
+    }
+    display_robot_manual();
     return 0;
 }
 //=================================
