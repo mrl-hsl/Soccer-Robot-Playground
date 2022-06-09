@@ -237,3 +237,24 @@ int robot :: display_robot_manual() {
     return 0;
 }
 //=================================
+int robot :: check_boudary() {
+
+    if(center_x <= base_size * 1/11) {
+        center_x += base_size * 0.01/22;
+        return 1;
+    }
+    else if(center_y <= base_size * 1/11) {
+        center_y += base_size * 0.01/22;
+        return 1;
+    }
+    else if(center_x >= base_size * 10/11) {
+        center_x -= base_size * 0.01/22;
+        return 1;
+    }
+    else if(center_y >= base_size * 7/11) {
+        center_y -= base_size * 0.01/22;
+        return 1;
+    }
+    return 0;
+}
+//=================================
