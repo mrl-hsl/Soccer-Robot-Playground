@@ -80,3 +80,13 @@ class robot : public base {
         int check_boudary();
 };
 //=================================
+void robot :: set_data() {
+    
+    robot_size = base_size * 0.3 / 11;
+    center_x = base_size * 5/10;
+    center_y = base_size * 4/11;
+    robot_angel = 1;
+    rotation_speed = 0;
+    move_speed = 0;
+}
+//=================================
