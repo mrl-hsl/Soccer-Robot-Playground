@@ -57,3 +57,26 @@ void base :: set_feild_size() {
     rectangle(world, l_goalarea_start , l_goalarea_finish , Scalar(255,255,255) , 2, 8, 0);
 }
 //=================================
+class robot : public base {
+
+    private:
+
+        Mat Arrow;
+        double robot_size;
+        double center_x, center_y;
+        double rigth_x, rigth_y;
+        double left_x, left_y;
+        double main_x, main_y;
+        double robot_angel;
+        int rotation_speed,move_speed;
+
+    public:
+
+        void set_data();
+        void robot_shape();
+        double Radian(double);
+        int display_robot_automatic();
+        int display_robot_manual();
+        int check_boudary();
+};
+//=================================
