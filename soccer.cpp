@@ -129,3 +129,67 @@ double robot ::  Radian(double angel)
     return angel;
 }
 //=================================
+int robot :: display_robot_automatic(){
+    
+    if(check_boudary()==0){
+        robot_shape();
+        switch(waitKey(1)){
+
+            case 97 :{
+                // change robot rotation
+                rotation_speed--;
+                break;
+            }
+            case 100 :{
+                // change robot rotation
+                rotation_speed++;
+                break;
+            }
+            case 119 :{
+                // change robot position
+                move_speed++;
+
+                break;
+            }
+            case 115 :{
+                // change robot position
+                move_speed--;
+                break;
+            }
+            case 114 :{
+                // reset case
+                move_speed = 0;
+                rotation_speed = 0;
+                break;
+            }
+            case 113 :{
+                // To quit the window
+                destroyAllWindows();
+                return 0;
+                break;
+            }
+        }
+        usleep(5000);
+        if(move_speed<=0){
+            center_x -= 1 * -move_speed * cos(Radian(robot_angel));
+            center_y -= 1 * -move_speed * sin(Radian(robot_angel));
+        }
+        else {
+            center_x += 1 * move_speed * cos(Radian(robot_angel));
+            center_y += 1 * move_speed * sin(Radian(robot_angel));
+        }
+        //====================
+        if(rotation_speed<=0){
+            robot_angel += 1 * -rotation_speed;
+        }
+        else if(rotation_speed>0){
+            robot_angel -= 1 * rotation_speed;
+        }
+    }
+   else{
+        cout<<"\nMovement is out of feild !!\n";
+    }
+    display_robot_automatic();
+    return 0;
+}
+//=================================
