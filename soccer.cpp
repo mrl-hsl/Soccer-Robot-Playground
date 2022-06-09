@@ -18,11 +18,11 @@ class base{
 
 };
 void base :: set_feild_size() {
-    int size;
+    int size=1000;
     cout<<"Enter base feild size : ";
     cin>>size;
     base_size = size;
-    world = Mat( size*8/11 , size,CV_8UC3 , 0.0 );
+    world = Mat( size*8/11 , size , CV_8UC3 , Scalar(0,0,0) );
 //===============================
     //declaring feild's point
     Point base_start(0,0);
@@ -31,6 +31,7 @@ void base :: set_feild_size() {
     Point feild_finish(base_size * 10/11 , base_size * 7/11 );
     Point mline_start(base_size / 2.0 , base_size * 1/11);
     Point mline_finish(base_size / 2.0 , base_size * 7/11);
+    Point middle_circle(base_size / 2.0 , base_size * 4/11);
     Point middle_point(base_size / 2.0 , base_size * 4/11);
     Point r_penalty_start(base_size * 1/11 , base_size * 1.5/11);
     Point r_penalty_finish(base_size * 3/11 , base_size * 6.5/11);
@@ -48,7 +49,8 @@ void base :: set_feild_size() {
     rectangle(world, base_start , base_finish , Scalar(255,255,255) , 2, 8, 0);
     rectangle(world, feild_start , feild_finish , Scalar(255,255,255) , 2, 8, 0);
     line(world, mline_start , mline_finish , Scalar(255,255,255) , 2, 8, 0);
-    circle(world, middle_point,(base_size * 1.5 / 22) , Scalar(255,255,255) ,2, 8, 0);
+    circle(world, middle_circle,(base_size * 1.5 / 22) , Scalar(255,255,255) ,2, 8, 0);
+    circle(world, middle_point,(base_size * 0.02 / 22) , Scalar(255,255,255) ,LINE_AA);
     rectangle(world, r_penalty_start , r_penalty_finish , Scalar(255,255,255) , 2, 8, 0);
     rectangle(world, l_penalty_start , l_penalty_finish , Scalar(255,255,255) , 2, 8, 0);
     rectangle(world, l_goal_start , l_goal_finish , Scalar(0,255,255) , 2, 8, 0);
@@ -202,14 +204,14 @@ int robot :: display_robot_manual() {
             }
             case 119 :{
                 // change robot position
-                center_x += 5 * cos(Radian(robot_angel));
-                center_y += 5 * sin(Radian(robot_angel));
+                center_x += 10 * cos(Radian(robot_angel));
+                center_y += 10 * sin(Radian(robot_angel));
                 break;
             }
             case 115 :{
                 // change robot position
-                center_x -= 5 * cos(Radian(robot_angel));
-                center_y -= 5 * sin(Radian(robot_angel));
+                center_x -= 10 * cos(Radian(robot_angel));
+                center_y -= 10 * sin(Radian(robot_angel));
                 break;
             }
             case 113 :{
@@ -276,7 +278,8 @@ int main()
     robot r1;
     int mode;
 
-    cout<<"1:manual mode\n2:automatic mode\n";cin>>mode;
+    cout<<"1:manual mode\n2:automatic mode\n";
+    cin>>mode;
 
     r1.set_feild_size();
     r1.set_data();
