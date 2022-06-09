@@ -18,7 +18,7 @@ class base{
 
 };
 void base :: set_feild_size() {
-    int size;
+    int size=1000;
     cout<<"Enter base feild size : ";
     cin>>size;
     base_size = size;
@@ -78,6 +78,7 @@ class robot : public base {
         int display_robot_automatic();
         int display_robot_manual();
         int check_boudary();
+        void check_speed();
 };
 //=================================
 void robot :: set_data() {
@@ -132,6 +133,7 @@ double robot ::  Radian(double angel)
 int robot :: display_robot_automatic() {
     
     if(check_boudary()==0) {
+
         robot_shape();
         switch(waitKey(1)) {
 
@@ -169,26 +171,14 @@ int robot :: display_robot_automatic() {
                 break;
             }
         }
-        usleep(5000);
-        if(move_speed<=0) {
-            center_x -= 1 * -move_speed * cos(Radian(robot_angel));
-            center_y -= 1 * -move_speed * sin(Radian(robot_angel));
-        }
-        else {
-            center_x += 1 * move_speed * cos(Radian(robot_angel));
-            center_y += 1 * move_speed * sin(Radian(robot_angel));
-        }
-        //====================
-        if(rotation_speed<=0) {
-            robot_angel += 1 * -rotation_speed;
-        }
-        else if(rotation_speed>0) {
-            robot_angel -= 1 * rotation_speed;
-        }
+
+        check_speed();
     }
-   else {
+
+    else {
         cout<<"\nMovement is out of feild !!\n";
     }
+
     display_robot_automatic();
     return 0;
 }
@@ -196,6 +186,7 @@ int robot :: display_robot_automatic() {
 int robot :: display_robot_manual() {
     
     if(check_boudary()==0) {
+
         robot_shape();
         switch(waitKey(0)) {
 
@@ -230,9 +221,11 @@ int robot :: display_robot_manual() {
             display_robot_manual();
         }
     }
-   else {
+
+    else {
         cout<<"\nMovement is out of feild !!\n";
     }
+
     display_robot_manual();
     return 0;
 }
@@ -256,6 +249,26 @@ int robot :: check_boudary() {
         return 1;
     }
     return 0;
+}
+//=================================
+void robot :: check_speed() {
+
+    usleep(5000);
+    if(move_speed<=0) {
+        center_x -= 1 * -move_speed * cos(Radian(robot_angel));
+        center_y -= 1 * -move_speed * sin(Radian(robot_angel));
+    }
+    else {
+        center_x += 1 * move_speed * cos(Radian(robot_angel));
+        center_y += 1 * move_speed * sin(Radian(robot_angel));
+    }
+    //=====================
+    if(rotation_speed<=0) {
+        robot_angel += 1 * rotation_speed;
+    }
+    else if(rotation_speed>0) {
+        robot_angel -= 1 * -rotation_speed;
+    }
 }
 //=================================
 int main()
