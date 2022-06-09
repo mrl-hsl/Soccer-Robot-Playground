@@ -90,3 +90,42 @@ void robot :: set_data() {
     move_speed = 0;
 }
 //=================================
+void robot :: robot_shape() {
+
+    //creat a Arrow as a robot
+    world.copyTo(Arrow);
+
+    //declaring center point
+    Point center(center_x, center_y);
+
+    //declaring main line of Arrow
+    main_x = center_x + robot_size * cos(Radian(robot_angel));
+    main_y = center_y + robot_size * sin(Radian(robot_angel));
+    Point main(main_x, main_y);
+
+    //declaring right point of Arrow
+    rigth_x = center_x + robot_size * cos(Radian(robot_angel - 140));
+    rigth_y = center_y + robot_size * sin(Radian(robot_angel - 140));
+    Point rigth(rigth_x, rigth_y);
+
+    //declaring left point of Arrow
+    left_x = center_x + robot_size * cos(Radian(robot_angel + 140));
+    left_y = center_y + robot_size * sin(Radian(robot_angel + 140));
+    Point left(left_x, left_y);
+
+    //creat main lines of Arrow
+    line(Arrow, main,rigth, Scalar(0,0,240), 2, 8, 0);
+    line(Arrow, left, main, Scalar(0,0,240), 2, 8, 0);
+    
+    //creat sub lines
+    line(Arrow, center, left, Scalar(0,0,240), 2, 8, 0);
+    line(Arrow, rigth, center, Scalar(0,0,240), 2, 8, 0);
+
+    imshow("soccer feild",Arrow);
+}
+double robot ::  Radian(double angel)
+{
+    angel *= 0.0174533;
+    return angel;
+}
+//=================================
