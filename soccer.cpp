@@ -258,3 +258,20 @@ int robot :: check_boudary() {
     return 0;
 }
 //=================================
+int main()
+{
+    robot r1;
+    int mode;
+
+    cout<<"1:manual mode\n2:automatic mode\n";cin>>mode;
+
+    r1.set_feild_size();
+    r1.set_data();
+
+    if(mode == 1)
+        r1.display_robot_manual();
+    else 
+        r1.display_robot_automatic();
+
+    return 0;
+}
