@@ -5,6 +5,7 @@
 #include "Configs.hpp"
 #include "Field.hpp"
 #include "Robot.hpp"
+#include "HelpWindow.hpp"
 
 class World {
 private:
