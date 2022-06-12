@@ -1,7 +1,31 @@
 #include "Field.hpp"
+#include <opencv4/opencv2/highgui/highgui.hpp>
+#include <opencv4/opencv2/imgproc/imgproc.hpp>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <string>
+#include <chrono>
+#include <thread>
+#include <cmath>
 
-Field::makeField(){
+Field::Field(){
+    double Scale = modelScale * 12;
+    if (Scale >= 2500){
+        fontSize = 1.7;
+        lineSize = 8;
+    }
+    else if (Scale > 1550 && Scale < 2500){
+        fontSize = 1.2;
+        lineSize = 6;
+    }
+    else{
+        fontSize = 0.2;
+        lineSize = 1;
+    }
+}
 
+void Field::makeField(){
     //-- Creates the Window
     Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, 1.0);
 
@@ -33,11 +57,11 @@ Field::makeField(){
     Point goalAreaCornerDown2((windowLength - fieldPadding - goalAreaLength) * modelScale, (windowWidth + goalAreaWidth) * half * modelScale);
     //-- Goals Corners
     //- Team :
-    goalCornerTop1(fieldPadding * modelScale, (windowWidth - goalWidth) * half * modelScale);
-    goalCornerDown1((fieldPadding - goalDepth) * modelScale, (windowWidth + goalWidth) * half * modelScale);
+    Point goalCornerTop1(fieldPadding * modelScale, (windowWidth - goalWidth) * half * modelScale);
+    Point goalCornerDown1((fieldPadding - goalDepth) * modelScale, (windowWidth + goalWidth) * half * modelScale);
     //- Enemy :
-    goalCornerTop2((windowLength - fieldPadding) * modelScale, (windowWidth - goalWidth) * half * modelScale);
-    goalCornerDown2((windowLength - fieldPadding + goalDepth) * modelScale, (windowWidth + goalWidth) * half * modelScale);
+    Point goalCornerTop2((windowLength - fieldPadding) * modelScale, (windowWidth - goalWidth) * half * modelScale);
+    Point goalCornerDown2((windowLength - fieldPadding + goalDepth) * modelScale, (windowWidth + goalWidth) * half * modelScale);
 
     //------------------------
     //--| Draw with Points |--
@@ -52,15 +76,5 @@ Field::makeField(){
     line(Ground, middleLineTop, middleLineDown, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
     circle(Ground, middle, middleCircle1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
     circle(Ground, middle, middleCircle2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-
-
-
-
-
-
-
-
-
-
-
+    imshow("Play Ground", Ground);
 }

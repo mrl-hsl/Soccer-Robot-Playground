@@ -3,6 +3,18 @@
 
 #include "Configs.hpp"
 
+
+//-- wrong place for variables
+double fontSize = 1.2;
+double lineSize = 6;
+double fieldBlue = 100;
+double fieldGreen = 100;
+double fieldRed = 100;
+double windowWidth = (fieldWidth + 2 * fieldPadding);
+double windowLength = (fieldLength + 2 * fieldPadding);
+double helpWindowWidth = fieldWidth / 2;
+double helpWindowLength = fieldLength;
+
 //-- Field Class
 class Field{
     private:
@@ -12,20 +24,6 @@ class Field{
         void makeField();
 };
 
-Field::Field(){
-    if (modelScale >= 2500){
-        fontSize = 1.7;
-        lineSize = 8;
-    }
-    else if (modelScale > 1550 && modelScale < 2500){
-        fontSize = 1.2;
-        lineSize = 6;
-    }
-    else{
-        fontSize = 0.2;
-        lineSize = 1;
-    }
-}
-
-
 #endif // FIELD_HPP
+
+

@@ -1,12 +1,18 @@
-#include <opencv4/opencv2/opencv.hpp>
-#include <iostream>
+#include "Configs.hpp"
 #include "World.hpp"
-
+#include <opencv4/opencv2/highgui/highgui.hpp>
+#include <opencv4/opencv2/imgproc/imgproc.hpp>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <string>
+#include <chrono>
+#include <thread>
+#include <cmath>
 
 //-- Obvious Function
 int main()
 {
-    //-- Create Field, Then Robot
+    // config cnf;
     World world;
-    world.makeField;
 }
