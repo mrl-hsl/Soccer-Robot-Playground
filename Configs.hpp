@@ -29,78 +29,78 @@ using namespace this_thread;
 //- for 3K Monitors := 222
 //- for 2k Monitors := 180
 //- for 1k Monitors := 140
-double modelScale = 222;
+extern double modelScale;
 //-- GameMode :
 //- 0 : Position Control
 //- 1 : Velocity Control
-double modelMode = 1;
+extern double modelMode;
 //-- Font Size Scale :
-double fontSize = 1.2;
+extern double fontSize;
 //-- Lines of Model Scale :
-double lineSize = 6;
+extern double lineSize;
 //-- Blue, Green, Red
-double fieldBlue = 100;
-double fieldGreen = 100;
-double fieldRed = 100;
+extern double fieldBlue;
+extern double fieldGreen;
+extern double fieldRed;
 
 //---------------------
 //--| Robot Configs |--
 //---------------------
 //-- Robot Size (in Meter) :
-double robotSize  =0.2;
+extern double robotSize;
 //-- Sharpness of Robot (in Degree) :
-double robotSharpness  =140.0;
+extern double robotSharpness;
 
 //-------------------------
 //--| Movements Configs |--
 //-------------------------
 //-- Robot Spawining Position (According to Scale in Meter) :
-double xSpawn  =1/2;
-double ySpawn  =4/11;
+extern double xSpawn ;
+extern double ySpawn ;
 //-- Robot Move (in Pixels)
-double robotMove = 2.0;
+extern double robotMove ;
 //-- Robot Rotation (in Degree)
-double robotRotation  =1.0;
+extern double robotRotation ;
 //-- Max Movement Speed (in m/s)
-double maxMovementSpeed  =20;
+extern double maxMovementSpeed  ;
 //-- Max Rotation Speed (in Degree/s)
-double maxRotationSpeed  =10;
+extern double maxRotationSpeed  ;
 
 //---------------------------
 //--| Robocup Field Rules |--
 //---------------------------
 //-- Field Width & Length
-double fieldWidth  =6;
-double fieldLength  =9;
+extern double fieldWidth  ;
+extern double fieldLength ;
 //-- Field Padding (in Meter)
-double fieldPadding  =1;
+extern double fieldPadding ;
 //-- Penalty Area (in Meter)
-double penaltyAreaWidth = 5;
-double penaltyAreaLength  =2;
+extern double penaltyAreaWidth ;
+extern double penaltyAreaLength ;
 //-- Goal Area (in Meter)
-double goalAreaWidth = 3;
-double goalAreaLength  =1;
+extern double goalAreaWidth;
+extern double goalAreaLength ;
 //-- Goal (in Meter)
-double goalWidth  =2.6;
-double goalDepth  =0.6;
+extern double goalWidth ;
+extern double goalDepth  ;
 //-- Middle Circle Diameter (in Meter)
-double middleCircle1  =0.1;
-double middleCircle2  =1.5 ;
+extern double middleCircle1  ;
+extern double middleCircle2  ;
 //-- Middle Line Size
-double middleLine = 6;
+extern double middleLine ;
 
 //--------------------
 //--| Mathematical |--
 //--------------------
 //-- Half
-double half = 1/2;
+extern double half ;
 
 //---------------------------------------
 //--| Playground and Help Window Size |--
 //---------------------------------------
-double windowWidth = (fieldWidth + 2 * fieldPadding);
-double windowLength = (fieldLength + 2 * fieldPadding);
-double helpWindowWidth = fieldWidth / 2;
-double helpWindowLength = fieldLength;
+extern double windowWidth;
+extern double windowLength ;
+extern double helpWindowWidth ;
+extern double helpWindowLength ;
 
 #endif // SOCCERCONFIGS_HPP

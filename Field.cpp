@@ -13,11 +13,11 @@ Field::Field(){
     double Scale = modelScale * 12;
     if (Scale >= 2500){
         fontSize = 1.7;
-        lineSize = 8;
+        lineSize = 4;
     }
     else if (Scale > 1550 && Scale < 2500){
         fontSize = 1.2;
-        lineSize = 6;
+        lineSize = 4;
     }
     else{
         fontSize = 0.2;
@@ -34,12 +34,12 @@ void Field::makeField(){
     //--------------
     //-- Ground Corners
     Point topLeft(0, 0);
-    Point downRight(windowWidth * modelScale - lineSize, windowLength * modelScale - lineSize);
+    Point downRight(windowLength * modelScale - lineSize, windowWidth * modelScale - lineSize);
     //-- Field Corners, Middle Line and Middle Circle
     Point fieldCorner1(fieldPadding * modelScale, fieldPadding * modelScale);
     Point fieldCorner2((fieldPadding + fieldLength) * modelScale, (fieldPadding + fieldWidth) * modelScale);
-    Point middleLineTop((fieldPadding + fieldLength * half) * modelScale, fieldPadding * modelScale);
-    Point middleLineDown((fieldPadding + fieldLength * half) * modelScale, (fieldPadding + middleLine) * modelScale);
+    Point middleLineTop((windowLength * half) * modelScale, fieldPadding * modelScale);
+    Point middleLineDown((windowLength * half) * modelScale, (fieldPadding + middleLine) * modelScale);
     Point middle((fieldPadding + fieldLength * half) * modelScale, (fieldPadding + fieldWidth * half) * modelScale);
     //-- Penalty Areas Corners
     //- Team :
@@ -74,7 +74,18 @@ void Field::makeField(){
 
     //-- Middle
     line(Ground, middleLineTop, middleLineDown, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    circle(Ground, middle, middleCircle1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
-    circle(Ground, middle, middleCircle2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+    circle(Ground, middle, middleCircle1 * modelScale / 2, Scalar(fieldBlue, fieldGreen, fieldRed), -1, 8, 0);
+    circle(Ground, middle, middleCircle2 * modelScale / 2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+
+    //-- Penalty Areas
+    rectangle(Ground, penaltyCornerTop1, penaltyCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+    rectangle(Ground, penaltyCornerTop2, penaltyCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+
+    //-- Goal Areas
+    rectangle(Ground, goalAreaCornerTop1, goalAreaCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+    rectangle(Ground, goalAreaCornerTop2, goalAreaCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);    
+    //-- Goals
+    rectangle(Ground, goalCornerTop1, goalCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
+    rectangle(Ground, goalCornerTop2, goalCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);    
     imshow("Play Ground", Ground);
 }
