@@ -1,4 +1,3 @@
-#include "Configs.hpp"
 #include "World.hpp"
 #include <opencv4/opencv2/highgui/highgui.hpp>
 #include <opencv4/opencv2/imgproc/imgproc.hpp>
