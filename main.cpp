@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include "Field.hpp"
 #include <opencv4/opencv2/highgui/highgui.hpp>
 #include <opencv4/opencv2/imgproc/imgproc.hpp>
 #include <iostream>
@@ -9,9 +10,9 @@
 #include <thread>
 #include <cmath>
 
-//-- Obvious Function
+//-- Main Function
 int main()
 {
-    // config cnf;
+    Field field;
     World world;
 }

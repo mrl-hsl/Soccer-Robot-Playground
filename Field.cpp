@@ -9,6 +9,40 @@
 #include <thread>
 #include <cmath>
 
+    double modelScale = 222;
+    double modelMode = 1;
+    double fontSize = 1.2;
+    double lineSize = 4;
+    double fieldBlue = 100;
+    double fieldGreen = 100;
+    double fieldRed = 100;
+    double robotSize  = 0.2;
+    double robotSharpness = 140.0;
+    double xSpawn = 1/2;
+    double ySpawn = 0.4;
+    double robotMove = 2.0;
+    double robotRotation = 1.0;
+    double maxMovementSpeed = 20;
+    double maxRotationSpeed = 10;
+    double fieldWidth = 6;
+    double fieldLength = 9;
+    double fieldPadding = 1;
+    double penaltyAreaWidth = 5;
+    double penaltyAreaLength = 2;
+    double goalAreaWidth = 3;
+    double goalAreaLength = 1;
+    double goalWidth = 2.6;
+    double goalDepth = 0.6;
+    double middleCircle1 = 0.1;
+    double middleCircle2 = 1.5 ;
+    double middleLine = 6;
+    double half = 0.5;
+    double windowWidth = (fieldWidth + 2 * fieldPadding);
+    double windowLength = (fieldLength + 2 * fieldPadding);
+    double helpWindowWidth = fieldWidth / 2;
+    double helpWindowLength = fieldLength;
+
+//-- Constructor
 Field::Field(){
     double Scale = modelScale * 12;
     if (Scale >= 2500){
@@ -25,12 +59,13 @@ Field::Field(){
     }
 }
 
+//--Makes the Field
 void Field::makeField(){
     //-- Creates the Window
     Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, 1.0);
 
     //--------------
-    //--| Points |--
+    //--| Points |--k
     //--------------
     //-- Ground Corners
     Point topLeft(0, 0);
@@ -87,5 +122,7 @@ void Field::makeField(){
     //-- Goals
     rectangle(Ground, goalCornerTop1, goalCornerDown1, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);
     rectangle(Ground, goalCornerTop2, goalCornerDown2, Scalar(fieldBlue, fieldGreen, fieldRed), lineSize, 8, 0);    
+
+    //-- Show Output
     imshow("Play Ground", Ground);
 }
