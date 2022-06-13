@@ -42,9 +42,9 @@ void base :: set_mode() {
 }
 //===============================
 void base :: set_feild_size() {
-    int size=1000;
-    //cout<<"Enter base feild size : ";
-    //cin>>size;
+    int size;
+    cout<<"Enter base feild size : ";
+    cin>>size;
     base_size = size;
     world = Mat( size*8/11 , size , CV_8UC3 , Scalar(0,0,0) );
 //===============================
@@ -100,8 +100,9 @@ class robot : public base {
         double rigth_x, rigth_y;
         double left_x, left_y;
         double main_x, main_y;
-        double robot_angel;
+        int robot_angel;
         int rotation_speed,move_speed;
+        string pivot_x,pivot_y;
 
     public:
 
@@ -112,6 +113,7 @@ class robot : public base {
         int robot_manual();
         int check_boudary();
         void check_speed();
+        void check_pivot();
         void display();
 };
 //=================================
@@ -151,22 +153,35 @@ void robot :: robot_shape() {
     //declaring info point
     Point x_position(base_size * 1/11 , base_size * 7.3/11);
     Point y_position(base_size * 1/11 , base_size * 7.6/11);
-    Point x_info(base_size * 2.1/11 , base_size * 7.3/11);
-    Point y_info(base_size * 2.1/11 , base_size * 7.6/11);
-    string x_string = to_string(center_x/90 -1);
-    string y_string = to_string(center_y/90 -1);
+    Point x_point(base_size * 2.1/11 , base_size * 7.3/11);
+    Point y_point(base_size * 2.1/11 , base_size * 7.6/11);
 
-    /*float set_x,set_y;
-    ostringstream set_x;
-    cout<<x_string<<setprecision(2);*/
-    
+    check_pivot();   
 
-    Point move_speed_position(base_size * 4/11 , base_size * 7.3/11);
-    Point rotate_speed_position(base_size * 4/11 , base_size * 7.6/11);
-    Point move_info(base_size * 5.7/11 , base_size * 7.3/11);
-    Point rotate_info(base_size * 6.1/11 , base_size * 7.6/11);
-    string move_string = to_string(move_speed);
+    Point move_speed_position(base_size * 3/11 , base_size * 7.3/11);
+    Point move_point(base_size * 5.7/11 , base_size * 7.3/11);
+    Point rotate_speed_position(base_size * 3/11 , base_size * 7.6/11);
+    Point rotate_point(base_size * 6.1/11 , base_size * 7.6/11);
+    string move_string = to_string(move_speed*10);
     string rotate_string = to_string(rotation_speed);
+
+    //==================================
+    //rotation info
+    Point angel_point(base_size * 7/11 , base_size * 7.4/11);
+    int set = -robot_angel + 180;
+    if (set >= 360 || set <= -360)
+    {
+        robot_angel = 180;
+    }
+    if (set >= 180)
+    {
+        set -= 360;
+    }
+    if (set < -180)
+    {
+        set += 360;
+    }
+    string angel_string = to_string(set);
 
     //=========================
 
@@ -180,21 +195,19 @@ void robot :: robot_shape() {
 
     //info section
     
-    putText(Arrow, "Pivot X : ", x_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
-    putText(Arrow, x_string , x_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
-    putText(Arrow, "Pivot Y : ", y_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
-    putText(Arrow, y_string , y_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(0,200,0));
+    putText(Arrow, "Pivot X : "+pivot_x , x_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
+    putText(Arrow, "Pivot Y : "+pivot_y , y_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,200,0));
 
     if(mode == 1) {
-        putText(Arrow, "Const Move Speed : 5 deg/ml", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
-        putText(Arrow, "Const Rotation Speed : 10 px/ml", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
+        putText(Arrow, "Const Move Speed : 10 px/ms", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
+        putText(Arrow, "Const Rotation Speed : 5 deg/ms", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.013/22 , Scalar(255,255,0));
     }
     else {
-        putText(Arrow, "Move Speed : ", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
-        putText(Arrow, move_string , move_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
-        putText(Arrow, "Rotation Speed : ", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
-        putText(Arrow, rotate_string , rotate_info, FONT_HERSHEY_DUPLEX , base_size * 0.012/22 , Scalar(255,255,0));
+        putText(Arrow, "Move Speed : "+move_string+" px/ms", move_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
+        putText(Arrow, "Rotation Speed : "+rotate_string+" deg/ms", rotate_speed_position, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(255,255,0));
     }
+
+    putText(Arrow, "Robot angel : "+angel_string+" deg", angel_point, FONT_HERSHEY_DUPLEX , base_size * 0.015/22 , Scalar(0,0,200));
 
     imshow("soccer feild",Arrow);
 }
@@ -236,6 +249,7 @@ int robot :: robot_automatic() {
                 // reset case
                 move_speed = 0;
                 rotation_speed = 0;
+                robot_angel = 0;
                 break;
             }
             case 113 :{
@@ -278,6 +292,11 @@ int robot :: robot_manual() {
                 // change robot position
                 center_x += 10 * cos(Radian(robot_angel));
                 center_y += 10 * sin(Radian(robot_angel));
+                break;
+            }
+            case 114 : {
+                //reset case
+                robot_angel = 0;
                 break;
             }
             case 115 :{
@@ -324,6 +343,34 @@ int robot :: check_boudary() {
     return 0;
 }
 //=================================
+void robot :: check_pivot() {
+
+    ostringstream set_x,set_y;
+
+    if(center_x < base_size/2 && center_y < base_size*4/11){
+            set_x<<setprecision(3)<<-(center_x/90 -1);
+            set_y<<setprecision(3)<<center_y/90 -1;
+        }
+        else if(center_x > base_size/2 && center_y < base_size*4/11) {
+            set_x<<setprecision(3)<<center_x/90 -1;
+            set_y<<setprecision(3)<<center_y/90 -1;
+        }
+        else if(center_x > base_size/2 && center_y > base_size*4/11) {
+            set_x<<setprecision(3)<<center_x/90 -1;
+            set_y<<setprecision(3)<<-(center_y/90 -1);
+        }
+        else if(center_x < base_size/2 && center_y > base_size*4/11) {
+            set_x<<setprecision(3)<<-(center_x/90 -1);
+            set_y<<setprecision(3)<<-(center_y/90 -1);
+        }
+        else{
+            set_x << 0;
+            set_y << 0;
+        }
+        pivot_x = set_x.str();
+        pivot_y = set_y.str();
+}
+//=================================
 void robot :: check_speed() {
 
     usleep(5000);
@@ -336,10 +383,10 @@ void robot :: check_speed() {
         center_y += 1 * move_speed * sin(Radian(robot_angel));
     }
     //=====================
-    if(rotation_speed<=0) {
-        robot_angel += 1 * rotation_speed;
+    if(rotation_speed<=0 && rotation_speed > -179) {
+            robot_angel += 1 * rotation_speed;
     }
-    else if(rotation_speed>0) {
+    else if(rotation_speed>0 && rotation_speed <=180) {
         robot_angel -= 1 * -rotation_speed;
     }
 }
