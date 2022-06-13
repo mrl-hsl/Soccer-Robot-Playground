@@ -7,14 +7,23 @@
 class HelpWindow {
     private:
         Mat helpWin;
-        Mat directionArrow;
-        int activeStateValue; // fadeing
-        int stopStateValue; // inactive
-        int counter;
-        int state;
+        double noWindowInfo;
+        double positionW;
+        double positionS;
+        double positionD;
+        double positionA;
+        double positionP;
+        double positionC;
+        double positionM;
+        double positionR;
+        double positionQ;
+        double positionText;
+        double positionStatus;
+        string status;
     public:
         void updateHelpWindow();
         int activityCircle();
+        HelpWindow();
 };
 
 #endif // HELPWINDOW_HPP

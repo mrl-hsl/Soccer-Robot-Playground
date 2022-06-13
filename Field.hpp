@@ -10,7 +10,8 @@ class Field{
         Mat Ground;
     public:
         Field();
-        void makeField();
+        void fieldCreate();
+        Mat Access();
 };
 
 #endif // FIELD_HPP

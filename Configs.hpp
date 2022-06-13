@@ -1,5 +1,5 @@
-#ifndef SOCCERCONFIGS_HPP
-#define SOCCERCONFIGS_HPP
+#ifndef CONFIGS_HPP
+#define CONFIGS_HPP
 //-- Config File
 //-- Here You Can Config Program 
 //-- Don't Remember to Include this File
@@ -17,6 +17,7 @@
 #include <thread>
 #include <cmath>
 
+//--Name Spaces
 using namespace std;
 using namespace cv;
 using namespace chrono;
@@ -100,7 +101,27 @@ extern double half ;
 //---------------------------------------
 extern double windowWidth;
 extern double windowLength ;
+
+//---------------------------------
+//--| Help Window Configuration |--
+//---------------------------------
+//-- Help Window Size
 extern double helpWindowWidth ;
 extern double helpWindowLength ;
+//-- Activity Circle Colors and Attributes
+extern int activityStateValue;
+extern int stopStateValue;
+extern int counter;
+extern int state;
+//-- Help Window Background Color Cnonfig
+extern int windowColorBlue;
+extern int windowColorGreen;
+extern int windowColorRed;
+//-- Help Window Font Size
+extern int helpWindowFontSize;
+//-- Help Window Text Colors
+extern int helpWindowTextBlue;
+extern int helpWindowTextGreen;
+extern int helpWindowTextRed;
 
-#endif // SOCCERCONFIGS_HPP
+#endif // CONFIGS_HPP

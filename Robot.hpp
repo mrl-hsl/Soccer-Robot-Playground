@@ -2,11 +2,14 @@
 #define ROBOT_HPP
 
 #include "Configs.hpp"
+
+//-- Robot Class
 class Robot {
     private:
-        Mat Agent;
+        double rotation;
     public:
         Robot();
+        double Access();
 };
 
 #endif // ROBOT_HPP
