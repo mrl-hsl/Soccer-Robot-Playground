@@ -49,16 +49,21 @@ extern double fieldRed;
 //---------------------
 //-- Robot Size (in Meter) :
 extern double robotSize;
+extern double robotLineSize;
 //-- Sharpness of Robot (in Degree) :
 extern double robotSharpness;
-
-//-------------------------
-//--| Movements Configs |--
-//-------------------------
 //-- Robot Spawining Position (According to Scale in Meter) :
 extern double xSpawn ;
 extern double ySpawn ;
 extern double rotationSpawn;
+//-- Robot Colors
+extern double robotBlue;
+extern double robotGreen;
+extern double robotRed;
+
+//-------------------------
+//--| Movements Configs |--
+//-------------------------
 //-- Robot Move (in Pixels)
 extern double robotMove ;
 //-- Robot Rotation (in Degree)
@@ -120,7 +125,7 @@ extern int windowColorBlue;
 extern int windowColorGreen;
 extern int windowColorRed;
 //-- Help Window Font Size
-extern int helpWindowFontSize;
+extern double helpWindowFontSize;
 //-- Help Window Text Colors
 extern int helpWindowTextBlue;
 extern int helpWindowTextGreen;

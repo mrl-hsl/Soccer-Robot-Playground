@@ -27,13 +27,18 @@ double fieldRed = 100;
 //--| Robot Configs |--
 //---------------------
 //-- Robot Size (in Meter) :
-double robotSize  = 0.3;
+double robotSize  = 0.15;
+double robotLineSize = 2.5;
 //-- Sharpness of Robot (in Degree) :
 double robotSharpness = 140.0;
 //-- Robot Spawining Position (According to Scale in Meter) :
 double xSpawn = 0.5;
 double ySpawn = 0.5;
 double rotationSpawn = 0;
+//-- Robot Colors
+double robotBlue = 212;
+double robotGreen = 255;
+double robotRed = 127;
 
 //-- Convert Degree to Radian
 double Radian(double input){
@@ -41,26 +46,30 @@ double Radian(double input){
     return input;
 }
 
-//-- Spawning Configuration
+//-- Spawning Configuration in Constructor
 World::World(){
     agentCenterX = xSpawn * windowLength;
     agentCenterY = ySpawn * windowWidth;
-    worldCreate();
+    updateWindow();
 }
 
-void World::worldCreate(){
+
+void World::updateWindow(){
     //-- Update Window Frames Rate :
     // sleep_for(milliseconds(200));
-    HelpWindow status;
     status.updateHelpWindow();
     field.fieldCreate();
     robotCreate();
     waitKey(0);
     destroyAllWindows();
-    worldCreate();
+    updateWindow();
 }
 
+//-- Draws the Robot on Field
 void World::robotCreate(){
+    //-------------------
+    //--| Robot Shape |--
+    //-------------------
     //-- Creates Agent
     field.Access().copyTo(Agent);
     //-- Point Center
@@ -69,18 +78,21 @@ void World::robotCreate(){
     agentDirectionX = agentCenterX - robotSize * cos(Radian(rotationSpawn));
     agentDirectionY = agentCenterY - robotSize * sin(Radian(rotationSpawn));
     Point agentDirection(agentDirectionX * modelScale, agentDirectionY * modelScale);
-    line(Agent, agentCenter, agentDirection, Scalar(255,0,0), lineSize, 8, 0);
-    
     //-- Point Right
     agentRightX = agentCenterX - robotSize * cos(Radian(rotationSpawn + robotSharpness));
     agentRightY = agentCenterY - robotSize * sin(Radian(rotationSpawn + robotSharpness));
     Point agentRight(agentRightX * modelScale, agentRightY * modelScale);
-    line(Agent, agentCenter, agentRight, Scalar(255,0,0), lineSize, 8, 0);
-
     //-- Point Left
     agentLeftX = agentCenterX - robotSize * cos(Radian(rotationSpawn - robotSharpness));
     agentLeftY = agentCenterY - robotSize * sin(Radian(rotationSpawn - robotSharpness));
     Point agentLeft(agentLeftX * modelScale, agentLeftY * modelScale);
-    line(Agent, agentCenter, agentLeft, Scalar(255,0,0), lineSize, 8, 0);
+    //-- DR Line
+    line(Agent, agentDirection, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    //-- DL Line
+    line(Agent, agentDirection, agentLeft, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    //-- OR Line
+    line(Agent, agentCenter, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    //-- OL Line
+    line(Agent, agentCenter, agentLeft, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
     imshow("Soccer Ground 2", Agent);
 }

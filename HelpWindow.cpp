@@ -16,7 +16,7 @@ int windowColorBlue = 20;
 int windowColorGreen = 20;
 int windowColorRed = 20;
 //-- Help Window Font Size
-int helpWindowFontSize;
+double helpWindowFontSize;
 //-- Help Window Text Colors
 int helpWindowTextBlue = 255 ;
 int helpWindowTextGreen = 255;

@@ -10,6 +10,7 @@ class World {
 private:
     Field field;
     Robot robot;
+    HelpWindow status;
     Mat Agent;
     double agentCenterX;
     double agentCenterY;
@@ -21,7 +22,7 @@ private:
     double agentLeftY;
 public:
     World();
-    void worldCreate();
+    void updateWindow();
     void robotCreate();
 };
 
