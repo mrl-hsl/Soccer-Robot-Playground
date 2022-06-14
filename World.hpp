@@ -2,12 +2,9 @@
 #define WORLD_HPP
 
 //-- Includes Needed Files
-// #include "Configs.hpp"
 #include "Field.hpp"
 #include "HelpWindow.hpp"
 #include "Robot.hpp"
-// #include "Robot.hpp"
-// #include "HelpWindow.hpp"
 
 class World {
 private:

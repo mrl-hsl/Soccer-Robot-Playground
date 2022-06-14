@@ -58,6 +58,7 @@ extern double robotSharpness;
 //-- Robot Spawining Position (According to Scale in Meter) :
 extern double xSpawn ;
 extern double ySpawn ;
+extern double rotationSpawn;
 //-- Robot Move (in Pixels)
 extern double robotMove ;
 //-- Robot Rotation (in Degree)
@@ -95,6 +96,7 @@ extern double middleLine ;
 //--------------------
 //-- Half
 extern double half ;
+extern double rad;
 
 //---------------------------------------
 //--| Playground and Help Window Size |--
