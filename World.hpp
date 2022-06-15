@@ -14,12 +14,13 @@ private:
     Mat Agent;
     double agentCenterX;
     double agentCenterY;
-    double agentDirectionX;
-    double agentDirectionY;
-    double agentRightX;
-    double agentRightY;
+    double agentRotation;
     double agentLeftX;
     double agentLeftY;
+    double agentRightX;
+    double agentRightY;
+    double agentDirectionX;
+    double agentDirectionY;
 public:
     World();
     void updateWindow();

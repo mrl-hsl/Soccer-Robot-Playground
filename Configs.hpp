@@ -43,6 +43,8 @@ extern double lineSize;
 extern double fieldBlue;
 extern double fieldGreen;
 extern double fieldRed;
+//-- Refresh Rate
+extern double refreshRate;
 
 //---------------------
 //--| Robot Configs |--
