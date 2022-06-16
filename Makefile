@@ -8,20 +8,11 @@ lIBS = $(OPENCV)
 
 all: main
 
-main: main.o Field.o World.o
-	$(CC) $(CFLAGS) -o main main.o Field.o World.o
+main: main.o Field.o World.o Robot.o HelpWindow.o
+	$(CC) $(CFLAGS) -o main main.o Field.o World.o Robot.o HelpWindow.o $(lIBS)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp $(lIBS)
-
-Field.o: Field.cpp
-	$(CC) $(CFLAGS) -c Field.cpp $(lIBS)
-
-World.o: World.cpp
-	$(CC) $(CFLAGS) -c World.cpp $(lIBS)
-
-# $(TARGET): $(TARGET).c
-# 	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c -o $@ $< $(lIBS)
 
 clean:
 	rm *.o main
