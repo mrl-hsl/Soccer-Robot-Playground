@@ -21,10 +21,11 @@ private:
     double agentRightY;
     double agentDirectionX;
     double agentDirectionY;
+    int i;
 public:
     World();
-    void updateWindow();
-    void robotCreate();
+    int updateWindow();
+    void robotStateUpdate();
 };
 
 #endif // WORLD_HPP

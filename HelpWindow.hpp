@@ -19,11 +19,15 @@ class HelpWindow {
         double positionQ;
         double positionText;
         double positionStatus;
+        double positionSpeed;
         string status;
+        string speedStatus;
     public:
         void updateHelpWindow();
         int activityCircle();
         HelpWindow();
+        //-- Update Status of Changes
+        void updateStatus(int, double);
 };
 
 #endif // HELPWINDOW_HPP

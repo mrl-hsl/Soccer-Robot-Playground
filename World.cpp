@@ -21,7 +21,9 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-double refreshRate = 15;
+int refreshRate = 15;
+//-- Refresh Rate Const (ms)
+int refreshConst = 1000;
 //-- Mathematical 
 double rad = 0.0174533;
 
@@ -42,37 +44,80 @@ double robotBlue = 212;
 double robotGreen = 255;
 double robotRed = 127;
 
-//-- Convert Degree to Radian
-double Radian(double input){
-    input *= rad;
-    return input;
-}
-
 //-- Spawning Configuration in Constructor
 World::World(){
     agentCenterX = xSpawn * windowLength;
     agentCenterY = ySpawn * windowWidth;
     agentRotation = rotationSpawn;
-    robot.robotSet(xSpawn, ySpawn, rotationSpawn, modelScale, windowLength, windowWidth);
+    robot.savePosition(agentCenterX, agentCenterY, agentRotation);
+    robot.robotSet();
+    robot.setTime(refreshRate, refreshConst);
     field.fieldCreate();
     updateWindow();
 }
 
-void World::updateWindow(){
+int World::updateWindow(){
     //-- Update Window Frame's Refresh Rate :
-    sleep_for(milliseconds(refreshRate));
+    i++;
     status.updateHelpWindow();
-    robotCreate();
-    robot.savePosition(agentCenterX, agentCenterY, agentRotation);
-    //-- Set Velocity Part :
-    //...
-    waitKey(0);
-    destroyAllWindows();
-    updateWindow();
+    sleep_for(milliseconds(refreshRate));
+    agentCenterX = robot.accessX();
+    agentCenterY = robot.accessY();
+    agentRotation = robot.accessTetha();
+    robotStateUpdate();
+    if (robot.borderCheck() == 0){
+        robot.savePosition(agentCenterX, agentCenterY, agentRotation);
+        if (robot.state() == 1){
+            status.updateStatus(1, robot.accessMovementSpeed());
+        } else if (robot.state() == -1){
+            status.updateStatus(-1, robot.accessRotationSpeed());
+        } else if (robot.state() == 0){
+            status.updateStatus(0, 0);
+        }
+        switch(waitKey(1)){
+            //-- [W] --> Increase Movement Speed Key 
+            case 119:
+                robot.updateVelocity(1, 0);
+            break;
+            //-- [S] --> Decrease Movement Speed Key
+            case 115:
+                robot.updateVelocity(-1, 0);
+            break;
+            //-- [D] --> Increase Rotation Speed Key
+            case 100:
+                robot.updateVelocity(0, 1);
+            break;
+            //-- [A] --> Decrease Rotation Speed Key
+            case 97:
+                robot.updateVelocity(0, -1);
+            break;
+            //-- [R] --> Position Reset Key
+            case 114:
+                robot.resetPosition();
+            break;
+            //-- [P] --> Pause Key
+            case 112:
+                robot.resetSpeed();
+            break;
+            //-- [Q] --> Quit Key
+            case 113:
+                destroyAllWindows();
+                return 0;
+            break;
+        }
+        robot.Action();
+        updateWindow();
+    } else {
+        robot.resetCheck();
+        // robot.resetSpeed();
+        robot.error();
+        updateWindow();
+    }
+    return 0;
 }
 
 //-- Draws the Robot on Field
-void World::robotCreate(){
+void World::robotStateUpdate(){
     //-------------------
     //--| Robot Shape |--
     //-------------------
@@ -81,16 +126,16 @@ void World::robotCreate(){
     //-- Point Center
     Point agentCenter(agentCenterX * modelScale, agentCenterY * modelScale);
     //-- Point Direction
-    agentDirectionX = agentCenterX - robotSize * cos(Radian(agentRotation));
-    agentDirectionY = agentCenterY - robotSize * sin(Radian(agentRotation));
+    agentDirectionX = agentCenterX - robotSize * cos(agentRotation);
+    agentDirectionY = agentCenterY - robotSize * sin(agentRotation);
     Point agentDirection(agentDirectionX * modelScale, agentDirectionY * modelScale);
     //-- Point Right
-    agentRightX = agentCenterX - robotSize * cos(Radian(agentRotation + robotSharpness));
-    agentRightY = agentCenterY - robotSize * sin(Radian(agentRotation + robotSharpness));
+    agentRightX = agentCenterX - robotSize * cos(agentRotation + (robotSharpness * M_PI / 180));
+    agentRightY = agentCenterY - robotSize * sin(agentRotation + (robotSharpness * M_PI / 180));
     Point agentRight(agentRightX * modelScale, agentRightY * modelScale);
     //-- Point Left
-    agentLeftX = agentCenterX - robotSize * cos(Radian(agentRotation - robotSharpness));
-    agentLeftY = agentCenterY - robotSize * sin(Radian(agentRotation - robotSharpness));
+    agentLeftX = agentCenterX - robotSize * cos(agentRotation - (robotSharpness * M_PI / 180));
+    agentLeftY = agentCenterY - robotSize * sin(agentRotation - (robotSharpness * M_PI / 180));
     Point agentLeft(agentLeftX * modelScale, agentLeftY * modelScale);
     //-- DR Line
     line(Agent, agentDirection, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
@@ -100,9 +145,20 @@ void World::robotCreate(){
     line(Agent, agentCenter, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
     //-- OL Line
     line(Agent, agentCenter, agentLeft, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
-    
-    putText(Agent, to_string(robot.accessTetha()), agentDirection, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
-    putText(Agent, to_string(robot.accessY()), agentRight, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));
-    putText(Agent, to_string(robot.accessX()), agentLeft, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
+    ostringstream x,y,t;
+    x << fixed;
+    y << fixed;
+    t << fixed;
+    x << setprecision(2);
+    y << setprecision(2);
+    t << setprecision(2);
+    x << robot.accessX();
+    y << robot.accessY();
+    t << robot.accessTetha();
+    Point agentInfo(agentCenterX * modelScale, (agentCenterY + 0.3) * modelScale);
+    putText(Agent, t.str(), agentDirection, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
+    putText(Agent, x.str(), agentRight, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));
+    putText(Agent, y.str(), agentLeft, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
+    putText(Agent, to_string(i), agentInfo, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,0));
     imshow("Soccer Ground 2", Agent);
 }

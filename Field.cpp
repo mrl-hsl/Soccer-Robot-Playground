@@ -1,17 +1,5 @@
 #include "Field.hpp"
 
-//-------------------------
-//--| Movements Configs |--
-//-------------------------
-//-- Robot Move (in Pixels)
-double robotMove = 2.0;
-//-- Robot Rotation (in Degree)
-double robotRotation = 1.0;
-//-- Max Movement Speed (in m/s)
-double maxMovementSpeed = 20;
-//-- Max Rotation Speed (in Degree/s)
-double maxRotationSpeed = 10;
-
 //---------------------------
 //--| Robocup Field Rules |--
 //---------------------------

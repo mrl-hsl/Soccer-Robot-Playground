@@ -43,8 +43,10 @@ extern double lineSize;
 extern double fieldBlue;
 extern double fieldGreen;
 extern double fieldRed;
-//-- Refresh Rate
-extern double refreshRate;
+//-- Refresh Rate (ms)
+extern int refreshRate;
+//-- Refresh Rate Const (ms)
+extern int refreshConst;
 
 //---------------------
 //--| Robot Configs |--
@@ -66,10 +68,12 @@ extern double robotRed;
 //-------------------------
 //--| Movements Configs |--
 //-------------------------
-//-- Robot Move (in Pixels)
-extern double robotMove ;
-//-- Robot Rotation (in Degree)
-extern double robotRotation ;
+//-- Robot Move (in Pixels) -- Should be 1      [remove this and down one]
+extern double robotMoveValue;
+//-- Robot Rotation (in Degree) -- Should be 1
+extern double robotRotationValue;
+//-- Time Speed, Normal is Equal to 1
+extern double timeSpeed;
 //-- Max Movement Speed (in m/s)
 extern double maxMovementSpeed  ;
 //-- Max Rotation Speed (in Degree/s)

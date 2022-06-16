@@ -6,29 +6,47 @@
 //-- Robot Class
 class Robot {
     private:
-        double width;
-        double length;
         double robotX;
         double robotY;
         double robotLastX;
         double robotLastY;
         double robotTetha;
         double robotLastTetha;
-        double checkValue;
-        double windowScale;
+        int checkValue;
+        string errorInfo;
+        double movementSpeed;
+        double rotationSpeed;
+        double lastMovementSpeed;
+        double lastRotationSpeed;
+        double updateTime;
+        double constTime;
     public:
-        //-- Config Robot Spawn Position a
-        void robotSet(double, double ,double, double, double, double);
+        //-- Config Robot's Spawn Position
+        void robotSet();
         //-- Save Current Position before Movement
         void savePosition(double, double, double);
-        //-- Accessors
+        //-- Position Accessors
         double accessX();
         double accessY();
         double accessTetha();
+        double accessMovementSpeed();
+        double accessRotationSpeed();
         //-- Border Impact Check
         int borderCheck();
         void resetCheck();
-
+        //-- Reset Robot's Speed
+        void resetSpeed();
+        //-- Error Output
+        string error();
+        //-- Seek Movement and Rotation Changes
+        int state();
+        //-- Reset Robot's Position to Spawn Point
+        void resetPosition();
+        //-- Set Robot's Refresh Time
+        void setTime(int, int);
+        //-- Set Robot's Velocity (Movement Velocity, Rotation Velocity)
+        void updateVelocity(double, double);
+        void Action();
 };
 
 #endif // ROBOT_HPP

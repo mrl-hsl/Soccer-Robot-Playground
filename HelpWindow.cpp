@@ -45,6 +45,7 @@ HelpWindow::HelpWindow(){
     positionQ = 0.5625;
     positionText = 0.0625;
     positionStatus = 0.40625;
+    positionSpeed = 0.6875;
 }
 
 void HelpWindow::updateHelpWindow(){
@@ -64,6 +65,7 @@ void HelpWindow::updateHelpWindow(){
     Point helpWinKeyM(helpWindowLength * positionText * modelScale, helpWindowWidth * positionM * modelScale);
     Point helpWinKeyR(helpWindowLength * positionText * modelScale, helpWindowWidth * positionR * modelScale);
     Point helpWinKeyQ(helpWindowLength * positionText * modelScale, helpWindowWidth * positionQ * modelScale);
+    Point helpWinSpeedStatus(helpWindowLength * positionText * modelScale, helpWindowWidth * positionSpeed * modelScale);
     string keyW;
     string keyS;
     string keyD;
@@ -113,16 +115,25 @@ void HelpWindow::updateHelpWindow(){
         status = " No Data";
         putText(helpWin, status, helpWinStatus, FONT_HERSHEY_DUPLEX, 0.8, Scalar(0, 255, 255));
     }
-
     //-- Window Texts
     putText(helpWin, keyW, helpWinKeyW, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
     putText(helpWin, keyS, helpWinKeyS, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
     putText(helpWin, keyD, helpWinKeyD, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
     putText(helpWin, keyA, helpWinKeyA, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
     putText(helpWin, keyQ, helpWinKeyQ, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
-
+    putText(helpWin, speedStatus, helpWinSpeedStatus, FONT_HERSHEY_DUPLEX, helpWindowFontSize, Scalar(helpWindowTextBlue, helpWindowTextGreen, helpWindowTextRed));
 imshow("Help Window", helpWin);
 
 //las line is circle func
 }
 
+//-- Show Movement Speed Change (Movement or Rotation - Speed)
+void HelpWindow::updateStatus(int option, double speed){
+    if (option == 1){
+        speedStatus = "Movement Speed Changed to " + to_string(speed);
+    } else if (option == -1) {
+        speedStatus = "Rotation Speed Changed to " + to_string(speed);
+    } else {
+        speedStatus = "";
+    }
+}
