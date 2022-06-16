@@ -64,15 +64,19 @@ int Robot::borderCheck(){
     //-- if Impaction then Move to Last Position
    if (robotX * modelScale <= fieldPadding * modelScale ){
        robotX = robotLastX ;
+       resetSpeed();
        checkValue = -1;
    } else if (robotX * modelScale >= (windowLength - fieldPadding) * modelScale){
        robotX = robotLastX ;
+       resetSpeed();
        checkValue = 1;
    } else if (robotY * modelScale <= fieldPadding * modelScale){
        robotY = robotLastY ;
+       resetSpeed();
        checkValue = 2;
    } else if (robotY * modelScale >= (windowWidth - fieldPadding) * modelScale){
        robotY = robotLastY ;
+       resetSpeed();
        checkValue = -2;
    } else {
        checkValue = 0;
@@ -147,7 +151,7 @@ void Robot::updateVelocity(double movementVelocity, double rotationVelocity){
     rotationSpeed += rotationVelocity;
 }
 
-
+//-- Updates Robot's Position
 void Robot::Action(){
     //-- Movement Part
     //- X :

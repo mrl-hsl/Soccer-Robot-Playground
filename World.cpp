@@ -21,7 +21,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-int refreshRate = 15;
+int refreshRate = 1;
 //-- Refresh Rate Const (ms)
 int refreshConst = 1000;
 //-- Mathematical 
@@ -109,7 +109,7 @@ int World::updateWindow(){
         updateWindow();
     } else {
         robot.resetCheck();
-        // robot.resetSpeed();
+        robot.resetSpeed();
         robot.error();
         updateWindow();
     }
