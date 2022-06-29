@@ -12,11 +12,11 @@ double maxMovementSpeed;
 //-- Max Rotation Speed (in Degree/s)
 double maxRotationSpeed;
 //-- Time Speed, Normal is Equal to 1
-double timeSpeed = 2;
+double timeSpeed = 1;
 
 //-- Set Function
 //-- Spawn X, Spawn Y, Spawn Rotation, Model Scale, Model Length, Model Width
-void Robot::robotSet(){
+void Robot::robotSet() {
     robotX = xSpawn * windowLength;
     robotY = ySpawn * windowWidth;
     robotTetha = rotationSpawn;
@@ -26,7 +26,7 @@ void Robot::robotSet(){
 }
 
 //-- Save Current Position before Movement
-void Robot::savePosition(double inputX, double inputY, double inputTetha){
+void Robot::savePosition(double inputX, double inputY, double inputTetha) {
     robotLastX = inputX;
     robotLastY = inputY;
     robotLastTetha = inputTetha;
@@ -35,48 +35,44 @@ void Robot::savePosition(double inputX, double inputY, double inputTetha){
 }
 
 //-- Access to X Cordinate of Robot
-double Robot::accessX(){
+double Robot::accessX() {
     return robotX;
 }
 
 //-- Access to Y Cordinate of Robot
-double Robot::accessY(){
+double Robot::accessY() {
     return robotY;
 }
 
 //-- Access to Rotation of Robot
-double Robot::accessTetha(){
+double Robot::accessTetha() {
     return robotTetha;
 }
 
 //-- Access to Movement Speed
-double Robot::accessMovementSpeed(){
+double Robot::accessMovementSpeed() {
     return movementSpeed;
 }
 
 //-- Access to Rotation Speed
-double Robot::accessRotationSpeed(){
+double Robot::accessRotationSpeed() {
     return rotationSpeed;
 }
 
 //-- Check Impact with Border       [complete later]
-int Robot::borderCheck(){
+int Robot::borderCheck() {
     //-- if Impaction then Move to Last Position
    if (robotX * modelScale <= fieldPadding * modelScale ){
        robotX = robotLastX ;
-       resetSpeed();
        checkValue = -1;
    } else if (robotX * modelScale >= (windowLength - fieldPadding) * modelScale){
        robotX = robotLastX ;
-       resetSpeed();
        checkValue = 1;
    } else if (robotY * modelScale <= fieldPadding * modelScale){
        robotY = robotLastY ;
-       resetSpeed();
        checkValue = 2;
    } else if (robotY * modelScale >= (windowWidth - fieldPadding) * modelScale){
        robotY = robotLastY ;
-       resetSpeed();
        checkValue = -2;
    } else {
        checkValue = 0;
@@ -103,23 +99,23 @@ int Robot::borderCheck(){
 }   
 
 //-- Reset Check Value
-void Robot::resetCheck(){
+void Robot::resetCheck() {
     checkValue = 0;
 }
 
 //-- Reset Speed
-void Robot::resetSpeed(){
+void Robot::resetSpeed() {
     movementSpeed = 0;
     rotationSpeed = 0;
 }
 
 //-- Output Error
-string Robot::error(){
+string Robot::error() {
     return errorInfo;
 }
 
 //-- Seek Movement and Rotation Changes
-int Robot::state(){
+int Robot::state() {
     int output;
     if (lastMovementSpeed != movementSpeed){
         output = 1;
@@ -134,25 +130,25 @@ int Robot::state(){
 }
 
 //-- Reset's Robot's Position to Spawn Point
-void Robot::resetPosition(){
+void Robot::resetPosition() {
     robotX = xSpawn * windowLength;
     robotY = ySpawn * windowWidth;
 }
 
 //-- Set Robot's Refresh Time (Refresh Rate, Refresh Const)
-void Robot::setTime(int t1, int t2){
+void Robot::setTime(int t1, int t2) {
     updateTime = t1;
     constTime = t2;
 }
 
 //-- Set Robot's Velocity (Movement Velocity, Rotation Velocity)
-void Robot::updateVelocity(double movementVelocity, double rotationVelocity){
+void Robot::updateVelocity(double movementVelocity, double rotationVelocity) {
     movementSpeed += movementVelocity;
     rotationSpeed += rotationVelocity;
 }
 
 //-- Updates Robot's Position
-void Robot::Action(){
+void Robot::Action() {
     //-- Movement Part
     //- X :
     robotX = robotX - timeSpeed * movementSpeed * cos(robotTetha) * (updateTime / constTime);

@@ -21,7 +21,7 @@ private:
     double agentRightY;
     double agentDirectionX;
     double agentDirectionY;
-    int i;
+    int i = -1;
 public:
     World();
     int updateWindow();

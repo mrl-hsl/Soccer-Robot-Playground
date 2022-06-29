@@ -20,14 +20,27 @@ class HelpWindow {
         double positionText;
         double positionStatus;
         double positionSpeed;
+        double positionError;
+        double positionStatusCircle;
         string status;
+        string error;
         string speedStatus;
+        int activeValue;
+        int stoppedValue;
+        bool active;
+        int state;
+        int fadingFluency;
+        int fadingSpeed;
+        int counter;
+        int statusCircleSize;
     public:
-        void updateHelpWindow();
+        void updateHelpWindow(bool);
         int activityCircle();
         HelpWindow();
         //-- Update Status of Changes
         void updateStatus(int, double);
+        void updateError(string);
+        int Fader();
 };
 
 #endif // HELPWINDOW_HPP

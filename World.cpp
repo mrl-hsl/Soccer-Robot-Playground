@@ -21,7 +21,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-int refreshRate = 1;
+int refreshRate = 20;
 //-- Refresh Rate Const (ms)
 int refreshConst = 1000;
 //-- Mathematical 
@@ -45,7 +45,7 @@ double robotGreen = 255;
 double robotRed = 127;
 
 //-- Spawning Configuration in Constructor
-World::World(){
+World::World() {
     agentCenterX = xSpawn * windowLength;
     agentCenterY = ySpawn * windowWidth;
     agentRotation = rotationSpawn;
@@ -54,27 +54,34 @@ World::World(){
     robot.setTime(refreshRate, refreshConst);
     field.fieldCreate();
     updateWindow();
+    i = 0;
 }
 
-int World::updateWindow(){
+int World::updateWindow() {
     //-- Update Window Frame's Refresh Rate :
-    i++;
-    status.updateHelpWindow();
+    if (robot.accessMovementSpeed() != 0) {
+        i++;
+    }
     sleep_for(milliseconds(refreshRate));
     agentCenterX = robot.accessX();
     agentCenterY = robot.accessY();
     agentRotation = robot.accessTetha();
     robotStateUpdate();
-    if (robot.borderCheck() == 0){
+    if (robot.accessMovementSpeed() == true || robot.accessRotationSpeed() == true) {
+        // status.updateHelpWindow(true);
+    } else {
+        // status.updateHelpWindow(false);
+    }
+    if (robot.borderCheck() == 0) {
         robot.savePosition(agentCenterX, agentCenterY, agentRotation);
-        if (robot.state() == 1){
+        if (robot.state() == 1) {
             status.updateStatus(1, robot.accessMovementSpeed());
-        } else if (robot.state() == -1){
+        } else if (robot.state() == -1) {
             status.updateStatus(-1, robot.accessRotationSpeed());
-        } else if (robot.state() == 0){
+        } else if (robot.state() == 0) {
             status.updateStatus(0, 0);
         }
-        switch(waitKey(1)){
+        switch(waitKey(1)) {
             //-- [W] --> Increase Movement Speed Key 
             case 119:
                 robot.updateVelocity(1, 0);
@@ -94,6 +101,7 @@ int World::updateWindow(){
             //-- [R] --> Position Reset Key
             case 114:
                 robot.resetPosition();
+                i = -1;
             break;
             //-- [P] --> Pause Key
             case 112:
@@ -110,14 +118,14 @@ int World::updateWindow(){
     } else {
         robot.resetCheck();
         robot.resetSpeed();
-        robot.error();
+        status.updateError(robot.error());
         updateWindow();
     }
     return 0;
 }
 
 //-- Draws the Robot on Field
-void World::robotStateUpdate(){
+void World::robotStateUpdate() {
     //-------------------
     //--| Robot Shape |--
     //-------------------

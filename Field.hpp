@@ -5,7 +5,7 @@
 
 
 //-- Field Class
-class Field{
+class Field {
     private:
         Mat Ground;
     public:
