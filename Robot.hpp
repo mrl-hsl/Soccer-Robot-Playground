@@ -14,9 +14,11 @@ class Robot {
         double robotLastTetha;
         int checkValue;
         string errorInfo;
-        double movementSpeed;
+        double movementSpeedX;
+        double movementSpeedY;
         double rotationSpeed;
-        double lastMovementSpeed;
+        double lastMovementSpeedX;
+        double lastMovementSpeedY;
         double lastRotationSpeed;
         double updateTime;
         double constTime;
@@ -29,7 +31,8 @@ class Robot {
         double accessX();
         double accessY();
         double accessTetha();
-        double accessMovementSpeed();
+        double accessMovementSpeedX();
+        double accessMovementSpeedY();
         double accessRotationSpeed();
         //-- Border Impact Check
         int borderCheck();
@@ -43,9 +46,9 @@ class Robot {
         //-- Reset Robot's Position to Spawn Point
         void resetPosition();
         //-- Set Robot's Refresh Time
-        void setTime(int, int);
+        void setTime(double);
         //-- Set Robot's Velocity (Movement Velocity, Rotation Velocity)
-        void updateVelocity(double, double);
+        void setVelocity(double, double, double);
         void Action();
 };
 

@@ -21,9 +21,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-int refreshRate = 15;
-//-- Refresh Rate Const (ms)
-int refreshConst = 1000;
+int refreshRate = 20 / 1000;
 //-- Mathematical 
 double rad = 0.0174533;
 
@@ -51,7 +49,7 @@ World::World() {
     agentRotation = rotationSpawn;
     robot.savePosition(agentCenterX, agentCenterY, agentRotation);
     robot.robotSet();
-    robot.setTime(refreshRate, refreshConst);
+    robot.setTime(refreshRate);
     field.fieldCreate();
     updateWindow();
     i = 0;
@@ -59,16 +57,17 @@ World::World() {
 
 int World::updateWindow() {
     //-- Counter for Frames
-    if (robot.accessMovementSpeed() != 0) {
+    if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0) {
         i++;
     }
     //-- Update Window Frame's Refresh Rate :
     sleep_for(milliseconds(refreshRate));
     agentCenterX = robot.accessX();
     agentCenterY = robot.accessY();
+    cout << robot.accessX() << endl;
     agentRotation = robot.accessTetha();
     robotStateUpdate();
-    if (robot.accessMovementSpeed() != 0 || robot.accessRotationSpeed() != 0) {
+    if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0 || robot.accessRotationSpeed() != 0) {
         status.updateHelpWindow(true);
     } else {
         status.updateHelpWindow(false);
@@ -76,38 +75,59 @@ int World::updateWindow() {
     if (robot.borderCheck() == 0) {
         robot.savePosition(agentCenterX, agentCenterY, agentRotation);
         if (robot.state() == 1) {
-            status.updateStatus(1, robot.accessMovementSpeed());
+            status.updateStatus(1, sqrt(pow(robot.accessMovementSpeedX(), 2) + pow(robot.accessMovementSpeedY(), 2)));
         } else if (robot.state() == -1) {
             status.updateStatus(-1, robot.accessRotationSpeed());
         } else if (robot.state() == 0) {
             status.updateStatus(0, 0);
         }
         switch(waitKey(1)) {
+            
             //-- [W] --> Increase Movement Speed Key 
             case 119:
                 status.resetError();
-                robot.updateVelocity(1, 0);
+                robot.setVelocity(robot.accessMovementSpeedX() + 1, robot.accessMovementSpeedY() + 1, robot.accessRotationSpeed());
             break;
             //-- [S] --> Decrease Movement Speed Key
             case 115:
                 status.resetError();
-                robot.updateVelocity(-1, 0);
+                robot.setVelocity(robot.accessMovementSpeedX() - 1, robot.accessMovementSpeedY() - 1, robot.accessRotationSpeed());
             break;
             //-- [D] --> Increase Rotation Speed Key
             case 100:
                 status.resetError();
-                robot.updateVelocity(0, 1);
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() + 1);
             break;
             //-- [A] --> Decrease Rotation Speed Key
             case 97:
                 status.resetError();
-                robot.updateVelocity(0, -1);
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() - 1);
             break;
             //-- [R] --> Position Reset Key
             case 114:
                 status.resetError();
                 robot.resetPosition();
                 i = -1;
+            break;
+            //-- [O] --> Increase Velocity in X Axis
+            case 111:
+                status.resetError();
+                robot.setVelocity(robot.accessMovementSpeedX() + 1, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
+            break;
+            //-- [K] --> Increase Velocity in Y Axis
+            case 107:
+                status.resetError();
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() + 1, robot.accessRotationSpeed());
+            break;
+            //-- [I] --> Decrease Velocity in X Axis
+            case 105:
+                status.resetError();
+                robot.setVelocity(robot.accessMovementSpeedX() - 1, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
+            break;
+            //-- [J] --> Decrease Velocity in Y Axis
+            case 106:
+                status.resetError();
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() - 1, robot.accessRotationSpeed());
             break;
             //-- [P] --> Pause Key
             case 112:

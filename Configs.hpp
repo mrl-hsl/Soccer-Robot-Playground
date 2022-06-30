@@ -45,8 +45,6 @@ extern double fieldGreen;
 extern double fieldRed;
 //-- Refresh Rate (ms)
 extern int refreshRate;
-//-- Refresh Rate Const (ms)
-extern int refreshConst;
 
 //---------------------
 //--| Robot Configs |--
@@ -57,8 +55,8 @@ extern double robotLineSize;
 //-- Sharpness of Robot (in Degree) :
 extern double robotSharpness;
 //-- Robot Spawining Position (According to Scale in Meter) :
-extern double xSpawn ;
-extern double ySpawn ;
+extern double xSpawn;
+extern double ySpawn;
 extern double rotationSpawn;
 //-- Robot Colors
 extern double robotBlue;
@@ -72,55 +70,53 @@ extern double robotRed;
 extern double robotMoveValue;
 //-- Robot Rotation (in Degree) -- Should be 1
 extern double robotRotationValue;
-//-- Time Speed, Normal is Equal to 1
-extern double timeSpeed;
 //-- Max Movement Speed (in m/s)
-extern double maxMovementSpeed  ;
+extern double maxMovementSpeed;
 //-- Max Rotation Speed (in Degree/s)
-extern double maxRotationSpeed  ;
+extern double maxRotationSpeed;
 
 //---------------------------
 //--| Robocup Field Rules |--
 //---------------------------
 //-- Field Width & Length
-extern double fieldWidth  ;
-extern double fieldLength ;
+extern double fieldWidth;
+extern double fieldLength;
 //-- Field Padding (in Meter)
-extern double fieldPadding ;
+extern double fieldPadding;
 //-- Penalty Area (in Meter)
-extern double penaltyAreaWidth ;
-extern double penaltyAreaLength ;
+extern double penaltyAreaWidth;
+extern double penaltyAreaLength;
 //-- Goal Area (in Meter)
 extern double goalAreaWidth;
-extern double goalAreaLength ;
+extern double goalAreaLength;
 //-- Goal (in Meter)
-extern double goalWidth ;
-extern double goalDepth  ;
+extern double goalWidth;
+extern double goalDepth;
 //-- Middle Circle Diameter (in Meter)
-extern double middleCircle1  ;
-extern double middleCircle2  ;
+extern double middleCircle1;
+extern double middleCircle2;
 //-- Middle Line Size
-extern double middleLine ;
+extern double middleLine;
 
 //--------------------
 //--| Mathematical |--
 //--------------------
 //-- Half
-extern double half ;
+extern double half;
 extern double rad;
 
 //---------------------------------------
 //--| Playground and Help Window Size |--
 //---------------------------------------
 extern double windowWidth;
-extern double windowLength ;
+extern double windowLength;
 
 //---------------------------------
 //--| Help Window Configuration |--
 //---------------------------------
 //-- Help Window Size
-extern double helpWindowWidth ;
-extern double helpWindowLength ;
+extern double helpWindowWidth;
+extern double helpWindowLength;
 //-- Activity Circle Colors and Attributes
 extern int activityStateValue;
 extern int stopStateValue;

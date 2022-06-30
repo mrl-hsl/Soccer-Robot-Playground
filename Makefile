@@ -6,13 +6,16 @@ OPENCV = `pkg-config --cflags --libs opencv4`
 
 lIBS = $(OPENCV)
 
-all: main
+all: main run
 
 main: main.o Field.o World.o Robot.o HelpWindow.o
 	$(CC) $(CFLAGS) -o main main.o Field.o World.o Robot.o HelpWindow.o $(lIBS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c -o $@ $< $(lIBS)
+
+run:
+	./main
 
 clean:
 	rm *.o main

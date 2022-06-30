@@ -20,7 +20,8 @@ void Robot::robotSet() {
     robotX = xSpawn * windowLength;
     robotY = ySpawn * windowWidth;
     robotTetha = rotationSpawn;
-    movementSpeed = 0;
+    movementSpeedX = 0;
+    movementSpeedY = 0;
     rotationSpeed = 0;
     resetSpeed();
 }
@@ -30,7 +31,8 @@ void Robot::savePosition(double inputX, double inputY, double inputTetha) {
     robotLastX = inputX;
     robotLastY = inputY;
     robotLastTetha = inputTetha;
-    lastMovementSpeed = movementSpeed;
+    lastMovementSpeedX = movementSpeedX;
+    lastMovementSpeedY = movementSpeedY;
     lastRotationSpeed = rotationSpeed;
 }
 
@@ -49,9 +51,14 @@ double Robot::accessTetha() {
     return robotTetha;
 }
 
-//-- Access to Movement Speed
-double Robot::accessMovementSpeed() {
-    return movementSpeed;
+//-- Access to Movement Speed (X Vector)
+double Robot::accessMovementSpeedX() {
+    return movementSpeedX;
+}
+
+//-- Access to Movement Speed (Y Vector)
+double Robot::accessMovementSpeedY() {
+    return movementSpeedY;
 }
 
 //-- Access to Rotation Speed
@@ -59,7 +66,7 @@ double Robot::accessRotationSpeed() {
     return rotationSpeed;
 }
 
-//-- Check Impact with Border       [complete later]
+//-- Check Impact with Border
 int Robot::borderCheck() {
     //-- if Impaction then Move to Last Position
    if (robotX * modelScale <= fieldPadding * modelScale ){
@@ -105,7 +112,8 @@ void Robot::resetCheck() {
 
 //-- Reset Speed
 void Robot::resetSpeed() {
-    movementSpeed = 0;
+    movementSpeedX = 0;
+    movementSpeedY = 0;
     rotationSpeed = 0;
 }
 
@@ -117,13 +125,13 @@ string Robot::error() {
 //-- Seek Movement and Rotation Changes
 int Robot::state() {
     int output;
-    if (lastMovementSpeed != movementSpeed){
+    if (lastMovementSpeedX != movementSpeedX || lastMovementSpeedY != movementSpeedY){
         output = 1;
     }
     if (lastRotationSpeed != rotationSpeed){
         output = -1;
     }
-    if (lastRotationSpeed == rotationSpeed && lastMovementSpeed == movementSpeed){
+    if (lastRotationSpeed == rotationSpeed && lastMovementSpeedX == movementSpeedX && lastMovementSpeedY == movementSpeedY){
         output = 0;
     }
     return output;
@@ -136,24 +144,22 @@ void Robot::resetPosition() {
 }
 
 //-- Set Robot's Refresh Time (Refresh Rate, Refresh Const)
-void Robot::setTime(int t1, int t2) {
-    updateTime = t1;
-    constTime = t2;
+void Robot::setTime(double input) {
+    updateTime = input;
 }
 
-//-- Set Robot's Velocity (Movement Velocity, Rotation Velocity)
-void Robot::updateVelocity(double movementVelocity, double rotationVelocity) {
-    movementSpeed += movementVelocity;
-    rotationSpeed += rotationVelocity;
+//-- Set Robot's Velocity (Movement Velocity, Rotation Velocity) //set
+void Robot::setVelocity(double Vx, double Vy, double Vtetha) {
+    movementSpeedX = Vx;
+    movementSpeedY = Vy;
+    rotationSpeed = Vtetha;
 }
 
 //-- Updates Robot's Position
 void Robot::Action() {
     //-- Movement Part
-    //- X :
-    robotX = robotX - timeSpeed * movementSpeed * cos(robotTetha) * (updateTime / constTime);
-    //- Y :
-    robotY = robotY - timeSpeed * movementSpeed * sin(robotTetha) * (updateTime / constTime);
+    robotX = robotX + movementSpeedX * updateTime;
+    robotY = robotY + movementSpeedY * updateTime;
     //-- Rotation Part
-    robotTetha = robotTetha + timeSpeed * rotationSpeed * (updateTime / constTime);
+    robotTetha += rotationSpeed * updateTime;
 }
