@@ -22,6 +22,7 @@ class HelpWindow {
         double positionSpeed;
         double positionError;
         double positionStatusCircle;
+        double Scale;
         string status;
         string error;
         string speedStatus;
@@ -41,6 +42,7 @@ class HelpWindow {
         void updateStatus(int, double);
         void updateError(string);
         int Fader();
+        void resetError();
 };
 
 #endif // HELPWINDOW_HPP

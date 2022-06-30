@@ -21,7 +21,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-int refreshRate = 20;
+int refreshRate = 15;
 //-- Refresh Rate Const (ms)
 int refreshConst = 1000;
 //-- Mathematical 
@@ -58,19 +58,20 @@ World::World() {
 }
 
 int World::updateWindow() {
-    //-- Update Window Frame's Refresh Rate :
+    //-- Counter for Frames
     if (robot.accessMovementSpeed() != 0) {
         i++;
     }
+    //-- Update Window Frame's Refresh Rate :
     sleep_for(milliseconds(refreshRate));
     agentCenterX = robot.accessX();
     agentCenterY = robot.accessY();
     agentRotation = robot.accessTetha();
     robotStateUpdate();
-    if (robot.accessMovementSpeed() == true || robot.accessRotationSpeed() == true) {
-        // status.updateHelpWindow(true);
+    if (robot.accessMovementSpeed() != 0 || robot.accessRotationSpeed() != 0) {
+        status.updateHelpWindow(true);
     } else {
-        // status.updateHelpWindow(false);
+        status.updateHelpWindow(false);
     }
     if (robot.borderCheck() == 0) {
         robot.savePosition(agentCenterX, agentCenterY, agentRotation);
@@ -84,22 +85,27 @@ int World::updateWindow() {
         switch(waitKey(1)) {
             //-- [W] --> Increase Movement Speed Key 
             case 119:
+                status.resetError();
                 robot.updateVelocity(1, 0);
             break;
             //-- [S] --> Decrease Movement Speed Key
             case 115:
+                status.resetError();
                 robot.updateVelocity(-1, 0);
             break;
             //-- [D] --> Increase Rotation Speed Key
             case 100:
+                status.resetError();
                 robot.updateVelocity(0, 1);
             break;
             //-- [A] --> Decrease Rotation Speed Key
             case 97:
+                status.resetError();
                 robot.updateVelocity(0, -1);
             break;
             //-- [R] --> Position Reset Key
             case 114:
+                status.resetError();
                 robot.resetPosition();
                 i = -1;
             break;
