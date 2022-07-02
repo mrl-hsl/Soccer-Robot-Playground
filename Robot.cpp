@@ -164,12 +164,17 @@ void Robot::Action() {
     robotTetha += rotationSpeed * updateTime;
 }
 
+//-- Robot X Value Implementor
 void Robot::setX(double input){
     robotX = input; 
 }
-void Robot::setX(double input){
+
+//-- Robot Y Value Implementor
+void Robot::setY(double input){
     robotY = input; 
 }
-void Robot::setX(double input){
-    robotTetha = input; 
+
+//-- Robot Tetha Value Implementor
+void Robot::setTetha(double input){
+    robotTetha += input; 
 }

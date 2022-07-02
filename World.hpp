@@ -26,6 +26,8 @@ public:
     World();
     int updateWindow();
     void robotStateUpdate();
+    static void mouseAttacher(int ,int ,int ,int ,void *);
+    void Mouse(int ,int ,int ,int);
 };
 
 #endif // WORLD_HPP

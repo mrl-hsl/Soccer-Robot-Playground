@@ -3,6 +3,9 @@
 //---------------------
 //--| Model Configs |--
 //---------------------
+//-- Robot Size (in Meter) :
+double robotSize  = 0.18;
+double robotLineSize = 2.5;
 //-- Window Scale (in Pixels) :
 //- for 3K Monitors := 222
 //- for 2k Monitors := 180
@@ -24,13 +27,18 @@ double fieldRed = 100;
 double refreshRate = 200 / 1000;
 //-- Mathematical 
 double rad = 0.0174533;
+//-- Mouse Click Flag
+int mouseFlag;
+//-- Rotation Value with Mouse
+double mouseRotationValue = 10;
+//-- Click Area Radius
+double clickAreaRadius = robotSize * modelScale;
+//-- Mouse Distance to Center of Agent
+double mouseDistance;
 
 //---------------------
 //--| Robot Configs |--
 //---------------------
-//-- Robot Size (in Meter) :
-double robotSize  = 0.18;
-double robotLineSize = 2.5;
 //-- Sharpness of Robot (in Degree) :
 double robotSharpness = 140.0;
 //-- Robot Spawining Position (According to Scale in Meter) :
@@ -41,6 +49,8 @@ double rotationSpawn = 0;
 double robotBlue = 212;
 double robotGreen = 255;
 double robotRed = 127;
+//-- Color Value When Clicked
+int clickedColorValue = 0;
 
 //-- Spawning Configuration in Constructor
 World::World() {
@@ -51,6 +61,9 @@ World::World() {
     robot.robotSet();
     robot.setTime(refreshRate);
     field.fieldCreate();
+    robotStateUpdate();
+    setMouseCallback("Soccer Ground 2", mouseAttacher, this); 
+    mouseFlag = 1;
     updateWindow();
     i = 0;
 }
@@ -64,7 +77,6 @@ int World::updateWindow() {
     sleep_for(milliseconds((int)refreshRate*1000));
     agentCenterX = robot.accessX();
     agentCenterY = robot.accessY();
-    cout << robot.accessX() << endl;
     agentRotation = robot.accessTetha();
     robotStateUpdate();
     if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0 || robot.accessRotationSpeed() != 0) {
@@ -172,13 +184,13 @@ void World::robotStateUpdate() {
     agentLeftY = agentCenterY - robotSize * sin(agentRotation - (robotSharpness * M_PI / 180));
     Point agentLeft(agentLeftX * modelScale, agentLeftY * modelScale);
     //-- DR Line
-    line(Agent, agentDirection, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    line(Agent, agentDirection, agentRight, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     //-- DL Line
-    line(Agent, agentDirection, agentLeft, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    line(Agent, agentDirection, agentLeft, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     //-- OR Line
-    line(Agent, agentCenter, agentRight, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    line(Agent, agentCenter, agentRight, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     //-- OL Line
-    line(Agent, agentCenter, agentLeft, Scalar(robotBlue, robotGreen, robotRed), robotLineSize, 8, 0);
+    line(Agent, agentCenter, agentLeft, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     ostringstream x,y,t;
     x << fixed;
     y << fixed;
@@ -189,10 +201,98 @@ void World::robotStateUpdate() {
     x << robot.accessX();
     y << robot.accessY();
     t << robot.accessTetha();
-    Point agentInfo(agentCenterX * modelScale, (agentCenterY + 0.3) * modelScale);
-    putText(Agent, t.str(), agentDirection, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
-    putText(Agent, x.str(), agentRight, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));
-    putText(Agent, y.str(), agentLeft, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,255));    
+    Point agentInfo(agentCenterX * modelScale, (agentCenterY + 0.3) * modelScale); 
     putText(Agent, to_string(i), agentInfo, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,0));
     imshow("Soccer Ground 2", Agent);
+}
+
+//-- Attach Mouse to Window
+void World::mouseAttacher(int event, int x, int y, int flags, void *data){
+    World *pointer = reinterpret_cast<World*>(data);
+    pointer -> Mouse(event, x, y, flags);
+}
+
+//-- Offer Mouse Clicking Options
+void World::Mouse(int event, int x, int y, int flags){
+    if (robot.borderCheck() == 0){
+        if (mouseFlag == 1){
+            switch(event){
+                //-- Click Left Button to Pick Agent
+                case EVENT_LBUTTONDOWN:
+                    mouseDistance = sqrt(pow(agentCenterX*modelScale - x, 2) + pow(agentCenterY * modelScale - y, 2));
+                    if (mouseDistance < clickAreaRadius) {
+                        clickedColorValue = 100;
+                        mouseFlag = -1;
+                    }
+                    cout << mouseDistance << endl;
+                break;
+            }
+        } else if (mouseFlag == -1) {
+            switch(event){
+                //-- Set Agent Position to Cursor Position
+                case EVENT_MOUSEMOVE:
+                    if (agentCenterX * modelScale - x >= 0){
+                        robot.setX((x + mouseDistance * cos(agentRotation)) / modelScale);
+                    } else {
+                        robot.setX((x - mouseDistance * cos(agentRotation)) / modelScale);
+                    }
+                    if (agentCenterY * modelScale - y <= 0){
+                        robot.setY((y + mouseDistance * sin(agentRotation)) / modelScale);
+                    } else {
+                        robot.setY((y - mouseDistance * sin(agentRotation)) / modelScale);
+                    }
+                break;
+                //-- Click Left Button to Place Agent
+                case EVENT_LBUTTONDOWN:
+                    clickedColorValue = 0;
+                    setMouseCallback("Soccer Ground 2", NULL, this);
+                    setMouseCallback("Soccer Ground 2", mouseAttacher, this);
+                    mouseFlag = 1;
+                break;
+                case EVENT_MBUTTONDOWN:
+                    mouseFlag = 0;
+                break;
+                case EVENT_MOUSEHWHEEL:
+                    if (getMouseWheelDelta(flags) < 0){
+                        robotSize += 0.1;
+                        clickAreaRadius += 0.1 * modelScale;
+                    } else {
+                        robotSize -= 0.1;
+                        clickAreaRadius -= 0.1 * modelScale;
+                    }
+                break;
+            }
+        } else {
+            switch(event){
+                case EVENT_MOUSEMOVE:
+                    if (agentCenterX * modelScale - x >= 0){
+                        robot.setX((x + mouseDistance * cos(agentRotation)) / modelScale);
+                    } else {
+                        robot.setX((x - mouseDistance * cos(agentRotation)) / modelScale);
+                    }
+                    if (agentCenterY * modelScale - y <= 0){
+                        robot.setY((y + mouseDistance * sin(agentRotation)) / modelScale);
+                    } else {
+                        robot.setY((y - mouseDistance * sin(agentRotation)) / modelScale);
+                    }
+                break;
+                //-- Double Click Left Button to Decrease Tetha
+                case EVENT_LBUTTONDOWN:
+                    robot.setTetha(-mouseRotationValue * M_PI / 180);
+                break;
+                //-- Double Click Right Button to Increase Tetha
+                case EVENT_RBUTTONDOWN:
+                    robot.setTetha(+mouseRotationValue * M_PI / 180);
+                break;
+                case EVENT_MOUSEHWHEEL:
+                    mouseFlag = -1;
+                break;
+            }
+        }
+    } else {
+        robot.resetCheck();
+        robot.resetSpeed();
+        status.updateError(robot.error());
+        updateWindow();
+    }
 }

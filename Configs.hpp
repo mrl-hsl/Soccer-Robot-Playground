@@ -26,6 +26,9 @@ using namespace this_thread;
 //---------------------
 //--| Model Configs |--
 //---------------------
+//-- Robot Size (in Meter) :
+extern double robotSize;
+extern double robotLineSize;
 //-- Window Scale (in Pixels) :
 //- for 3K Monitors := 222
 //- for 2k Monitors := 180
@@ -45,13 +48,16 @@ extern double fieldGreen;
 extern double fieldRed;
 //-- Refresh Rate (ms)
 extern double refreshRate;
+//-- Mouse Click Flag
+extern int mouseFlag;
+//-- Rotation Value with Mouse
+extern double mouseRotationValue;
+//-- Click Area Radius
+extern double clickAreaRadius;
 
 //---------------------
 //--| Robot Configs |--
 //---------------------
-//-- Robot Size (in Meter) :
-extern double robotSize;
-extern double robotLineSize;
 //-- Sharpness of Robot (in Degree) :
 extern double robotSharpness;
 //-- Robot Spawining Position (According to Scale in Meter) :
@@ -62,6 +68,8 @@ extern double rotationSpawn;
 extern double robotBlue;
 extern double robotGreen;
 extern double robotRed;
+//-- Color Value When Clicked
+extern int clickedColorValue;
 
 //-------------------------
 //--| Movements Configs |--
