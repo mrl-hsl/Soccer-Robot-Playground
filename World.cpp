@@ -7,7 +7,7 @@
 //- for 3K Monitors := 222
 //- for 2k Monitors := 180
 //- for 1k Monitors := 140
-double modelScale = 200;
+double modelScale = 120;
 //-- GameMode :
 //- 0 : Position Control
 //- 1 : Velocity Control
@@ -21,7 +21,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-int refreshRate = 20 / 1000;
+double refreshRate = 200 / 1000;
 //-- Mathematical 
 double rad = 0.0174533;
 
@@ -61,7 +61,7 @@ int World::updateWindow() {
         i++;
     }
     //-- Update Window Frame's Refresh Rate :
-    sleep_for(milliseconds(refreshRate));
+    sleep_for(milliseconds((int)refreshRate*1000));
     agentCenterX = robot.accessX();
     agentCenterY = robot.accessY();
     cout << robot.accessX() << endl;

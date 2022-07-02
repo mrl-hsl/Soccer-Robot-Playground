@@ -163,3 +163,13 @@ void Robot::Action() {
     //-- Rotation Part
     robotTetha += rotationSpeed * updateTime;
 }
+
+void Robot::setX(double input){
+    robotX = input; 
+}
+void Robot::setX(double input){
+    robotY = input; 
+}
+void Robot::setX(double input){
+    robotTetha = input; 
+}

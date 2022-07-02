@@ -31,6 +31,9 @@ class Robot {
         double accessX();
         double accessY();
         double accessTetha();
+        void setX(double);
+        void setY(double);
+        void setTetha(double);
         double accessMovementSpeedX();
         double accessMovementSpeedY();
         double accessRotationSpeed();

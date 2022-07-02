@@ -44,7 +44,7 @@ extern double fieldBlue;
 extern double fieldGreen;
 extern double fieldRed;
 //-- Refresh Rate (ms)
-extern int refreshRate;
+extern double refreshRate;
 
 //---------------------
 //--| Robot Configs |--
