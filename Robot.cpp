@@ -157,11 +157,15 @@ void Robot::setVelocity(double Vx, double Vy, double Vtetha) {
 
 //-- Updates Robot's Position
 void Robot::Action() {
+    cout << endl << "T: " << updateTime << endl;
     //-- Movement Part
     robotX = robotX + movementSpeedX * updateTime;
     robotY = robotY + movementSpeedY * updateTime;
     //-- Rotation Part
     robotTetha += rotationSpeed * updateTime;
+    cout << endl << robotX << " - " << robotY << endl;
+    cout << movementSpeedX << " - " << movementSpeedY << endl;
+    cout << endl << updateTime;
 }
 
 //-- Robot X Value Implementor

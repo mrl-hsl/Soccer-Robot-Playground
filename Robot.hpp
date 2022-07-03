@@ -21,7 +21,6 @@ class Robot {
         double lastMovementSpeedY;
         double lastRotationSpeed;
         double updateTime;
-        double constTime;
     public:
         //-- Config Robot's Spawn Position
         void robotSet();

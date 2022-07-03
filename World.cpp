@@ -24,7 +24,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-double refreshRate = 200 / 1000;
+double refreshRate = 20.0/1000;
 //-- Mathematical 
 double rad = 0.0174533;
 //-- Mouse Click Flag
@@ -54,20 +54,21 @@ int clickedColorValue = 0;
 
 //-- Spawning Configuration in Constructor
 World::World() {
+    robot.setTime(refreshRate);
     agentCenterX = xSpawn * windowLength;
     agentCenterY = ySpawn * windowWidth;
     agentRotation = rotationSpawn;
     robot.savePosition(agentCenterX, agentCenterY, agentRotation);
     robot.robotSet();
-    robot.setTime(refreshRate);
     field.fieldCreate();
     robotStateUpdate();
     setMouseCallback("Soccer Ground 2", mouseAttacher, this); 
     mouseFlag = 1;
-    updateWindow();
     i = 0;
+    updateWindow();
 }
 
+//-- Updates Frames of Program
 int World::updateWindow() {
     //-- Counter for Frames
     if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0) {
@@ -202,13 +203,13 @@ void World::robotStateUpdate() {
     y << robot.accessY();
     t << robot.accessTetha();
     Point agentInfo(agentCenterX * modelScale, (agentCenterY + 0.3) * modelScale); 
-    putText(Agent, to_string(i), agentInfo, FONT_HERSHEY_DUPLEX, 0.8, Scalar(255,255,0));
+    putText(Agent, to_string(i), agentInfo, FONT_HERSHEY_DUPLEX, fontSize, Scalar(255,255,0));
     imshow("Soccer Ground 2", Agent);
 }
 
 //-- Attach Mouse to Window
 void World::mouseAttacher(int event, int x, int y, int flags, void *data){
-    World *pointer = reinterpret_cast<World*>(data);
+    World *pointer = reinterpret_cast<World* >(data);
     pointer -> Mouse(event, x, y, flags);
 }
 
@@ -231,16 +232,8 @@ void World::Mouse(int event, int x, int y, int flags){
             switch(event){
                 //-- Set Agent Position to Cursor Position
                 case EVENT_MOUSEMOVE:
-                    if (agentCenterX * modelScale - x >= 0){
-                        robot.setX((x + mouseDistance * cos(agentRotation)) / modelScale);
-                    } else {
-                        robot.setX((x - mouseDistance * cos(agentRotation)) / modelScale);
-                    }
-                    if (agentCenterY * modelScale - y <= 0){
-                        robot.setY((y + mouseDistance * sin(agentRotation)) / modelScale);
-                    } else {
-                        robot.setY((y - mouseDistance * sin(agentRotation)) / modelScale);
-                    }
+                    robot.setX(x / modelScale);
+                    robot.setY(y / modelScale);
                 break;
                 //-- Click Left Button to Place Agent
                 case EVENT_LBUTTONDOWN:
@@ -254,35 +247,27 @@ void World::Mouse(int event, int x, int y, int flags){
                 break;
                 case EVENT_MOUSEHWHEEL:
                     if (getMouseWheelDelta(flags) < 0){
-                        robotSize += 0.1;
-                        clickAreaRadius += 0.1 * modelScale;
+                        robot.setTetha(+mouseRotationValue * M_PI / 180);
                     } else {
-                        robotSize -= 0.1;
-                        clickAreaRadius -= 0.1 * modelScale;
+                        robot.setTetha(-mouseRotationValue * M_PI / 180);
                     }
                 break;
             }
         } else {
             switch(event){
                 case EVENT_MOUSEMOVE:
-                    if (agentCenterX * modelScale - x >= 0){
-                        robot.setX((x + mouseDistance * cos(agentRotation)) / modelScale);
-                    } else {
-                        robot.setX((x - mouseDistance * cos(agentRotation)) / modelScale);
-                    }
-                    if (agentCenterY * modelScale - y <= 0){
-                        robot.setY((y + mouseDistance * sin(agentRotation)) / modelScale);
-                    } else {
-                        robot.setY((y - mouseDistance * sin(agentRotation)) / modelScale);
-                    }
+                    robot.setX(x / modelScale);
+                    robot.setY(y / modelScale);
                 break;
                 //-- Double Click Left Button to Decrease Tetha
                 case EVENT_LBUTTONDOWN:
-                    robot.setTetha(-mouseRotationValue * M_PI / 180);
+                    robotSize += 0.05;
+                    clickAreaRadius += 0.05 * modelScale;
                 break;
                 //-- Double Click Right Button to Increase Tetha
                 case EVENT_RBUTTONDOWN:
-                    robot.setTetha(+mouseRotationValue * M_PI / 180);
+                    robotSize -= 0.05;
+                    clickAreaRadius -= 0.05 * modelScale;
                 break;
                 case EVENT_MOUSEHWHEEL:
                     mouseFlag = -1;
