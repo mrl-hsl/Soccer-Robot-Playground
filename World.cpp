@@ -242,9 +242,6 @@ void World::Mouse(int event, int x, int y, int flags){
                     setMouseCallback("Soccer Ground 2", mouseAttacher, this);
                     mouseFlag = 1;
                 break;
-                case EVENT_MBUTTONDOWN:
-                    mouseFlag = 0;
-                break;
                 case EVENT_MOUSEHWHEEL:
                     if (getMouseWheelDelta(flags) < 0){
                         robot.setTetha(+mouseRotationValue * M_PI / 180);
@@ -252,8 +249,11 @@ void World::Mouse(int event, int x, int y, int flags){
                         robot.setTetha(-mouseRotationValue * M_PI / 180);
                     }
                 break;
+                case EVENT_MBUTTONDOWN:
+                    mouseFlag = 0;
+                break;
             }
-        } else {
+        } else if (mouseFlag == 0){
             switch(event){
                 case EVENT_MOUSEMOVE:
                     robot.setX(x / modelScale);
@@ -269,7 +269,25 @@ void World::Mouse(int event, int x, int y, int flags){
                     robotSize -= 0.05;
                     clickAreaRadius -= 0.05 * modelScale;
                 break;
-                case EVENT_MOUSEHWHEEL:
+                case EVENT_MBUTTONDOWN:
+                    mouseFlag = 2;
+                break;
+            }
+        } else {
+            switch(event){
+                case EVENT_MOUSEMOVE:
+                    robot.setX(x / modelScale);
+                    robot.setY(y / modelScale);
+                break;
+                //-- Double Click Left Button to Decrease Tetha
+                case EVENT_LBUTTONDOWN:
+                    robot.setTetha(+mouseRotationValue * M_PI / 180);
+                break;
+                //-- Double Click Right Button to Increase Tetha
+                case EVENT_RBUTTONDOWN:
+                    robot.setTetha(-mouseRotationValue * M_PI / 180);
+                break;
+                case EVENT_MBUTTONDOWN:
                     mouseFlag = -1;
                 break;
             }
