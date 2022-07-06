@@ -15,6 +15,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <vector>
 #include <cmath>
 
 //--Name Spaces
