@@ -17,9 +17,10 @@ double timeSpeed = 1;
 //-- Set Function
 //-- Spawn X, Spawn Y, Spawn Rotation, Model Scale, Model Length, Model Width
 void Robot::robotSet() {
-    robotX = xSpawn * windowLength;
-    robotY = ySpawn * windowWidth;
-    robotTetha = rotationSpawn;
+    cout << "roboy" ;
+    x = xSpawn;
+    y = ySpawn;
+    theta = rotationSpawn;
     movementSpeedX = 0;
     movementSpeedY = 0;
     rotationSpeed = 0;
@@ -38,17 +39,17 @@ void Robot::savePosition(double inputX, double inputY, double inputTetha) {
 
 //-- Access to X Cordinate of Robot
 double Robot::accessX() {
-    return robotX;
+    return x;
 }
 
 //-- Access to Y Cordinate of Robot
 double Robot::accessY() {
-    return robotY;
+    return y;
 }
 
 //-- Access to Rotation of Robot
-double Robot::accessTetha() {
-    return robotTetha;
+double Robot::accessTheta() {
+    return theta;
 }
 
 //-- Access to Movement Speed (X Vector)
@@ -69,17 +70,17 @@ double Robot::accessRotationSpeed() {
 //-- Check Impact with Border
 int Robot::borderCheck() {
     //-- if Impaction then Move to Last Position
-   if (robotX * modelScale <= fieldPadding * modelScale ){
-       robotX = robotLastX ;
+   if (x * modelScale <= fieldPadding * modelScale ){
+       x = robotLastX ;
        checkValue = -1;
-   } else if (robotX * modelScale >= (windowLength - fieldPadding) * modelScale){
-       robotX = robotLastX ;
+   } else if (x * modelScale >= (windowLength - fieldPadding) * modelScale){
+       x = robotLastX ;
        checkValue = 1;
-   } else if (robotY * modelScale <= fieldPadding * modelScale){
-       robotY = robotLastY ;
+   } else if (y * modelScale <= fieldPadding * modelScale){
+       y = robotLastY ;
        checkValue = 2;
-   } else if (robotY * modelScale >= (windowWidth - fieldPadding) * modelScale){
-       robotY = robotLastY ;
+   } else if (y * modelScale >= (windowWidth - fieldPadding) * modelScale){
+       y = robotLastY ;
        checkValue = -2;
    } else {
        checkValue = 0;
@@ -139,8 +140,8 @@ int Robot::state() {
 
 //-- Reset's Robot's Position to Spawn Point
 void Robot::resetPosition() {
-    robotX = xSpawn * windowLength;
-    robotY = ySpawn * windowWidth;
+    x = xSpawn * windowLength;
+    y = ySpawn * windowWidth;
 }
 
 //-- Set Robot's Refresh Time (Refresh Rate, Refresh Const)
@@ -158,25 +159,25 @@ void Robot::setVelocity(double Vx, double Vy, double Vtetha) {
 //-- Updates Robot's Position
 void Robot::Action() {
     //-- Movement Part
-    globalmovementSpeedX = movementSpeedX * cos(robotTetha) + movementSpeedY * sin(-robotTetha);
-    globalmovementSpeedY = movementSpeedY * cos(-robotTetha) + movementSpeedX * sin(robotTetha);
-    robotX = robotX - globalmovementSpeedX * updateTime;
-    robotY = robotY - globalmovementSpeedY * updateTime;
+    globalmovementSpeedX = movementSpeedX * cos(theta) + movementSpeedY * sin(-theta);
+    globalmovementSpeedY = movementSpeedY * cos(-theta) + movementSpeedX * sin(theta);
+    x = x - globalmovementSpeedX * updateTime;
+    y = y - globalmovementSpeedY * updateTime;
     //-- Rotation Part
-    robotTetha -= rotationSpeed * updateTime;
+    theta -= rotationSpeed * updateTime;
 }
 
 //-- Robot X Value Implementor
 void Robot::setX(double input){
-    robotX = input; 
+    x = input; 
 }
 
 //-- Robot Y Value Implementor
 void Robot::setY(double input){
-    robotY = input; 
+    y = input; 
 }
 
 //-- Robot Tetha Value Implementor
 void Robot::setTetha(double input){
-    robotTetha = input;
+    theta = input;
 }
