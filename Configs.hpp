@@ -46,6 +46,9 @@ extern double lineSize;
 extern double fieldBlue;
 extern double fieldGreen;
 extern double fieldRed;
+extern double fieldBGBlue;
+extern double fieldBGGreen;
+extern double fieldBGRed;
 //-- Refresh Rate (ms)
 extern double refreshRate;
 //-- Mouse Click Flag

@@ -23,6 +23,9 @@ double lineSize = 4;
 double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
+double fieldBGBlue = 0;
+double fieldBGGreen = 0;
+double fieldBGRed = 0;
 //-- Refresh Rate (ms)
 double refreshRate = 1.0 / 100.0;
 //-- Mathematical 
@@ -74,7 +77,7 @@ World::World() {
 //-- Updates Frames of Program
 int World::updateWindow() {
     //-- Counter for Frames
-    if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0) {
+    if (robot.accessMovementSpeedX() != 0 || robot.accessMovementSpeedY() != 0 || robot.accessRotationSpeed() != 0) {
         i++;
     }
     //-- Update Window Frame's Refresh Rate :
@@ -98,59 +101,44 @@ int World::updateWindow() {
             status.updateStatus(0, 0);
         }
         switch(waitKey(1)) {
-            //-- [W] --> Increase Movement Speed Key 
-            case (int('w')):
-                status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() + moveSpeedValue, robot.accessMovementSpeedY() + moveSpeedValue, robot.accessRotationSpeed());
-            break;
-            //-- [S] --> Decrease Movement Speed Key
-            case 115:
-                status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() - moveSpeedValue, robot.accessMovementSpeedY() - moveSpeedValue, robot.accessRotationSpeed());
-            break;
-            //-- [D] --> Increase Rotation Speed Key
-            case int('j'):
+            //-- [j] --> Increase Rotation Speed Key
+            case (int('h')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() + moveSpeedValue);
             break;
-            //-- [A] --> Decrease Rotation Speed Key
-            case (int('l')):
+            //-- [l] --> Decrease Rotation Speed Key
+            case (int('k')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() - moveSpeedValue);
             break;
-            //-- [R] --> Position Reset Key
-            case 114:
-                status.resetError();
-                robot.resetPosition();
-                i = -1;
-            break;
             //-- [O] --> Increase Velocity in X Axis
-            case (int('i')):
+            case (int('u')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX() + moveSpeedValue, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
             break;
             //-- [h] --> Increase Velocity in Y Axis
-            case (int('h')):
+            case (int('l')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() - moveSpeedValue, robot.accessRotationSpeed());
             break;
             //-- [I] --> Decrease Velocity in X Axis
-            case (int(',')):
+            case (int('m')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX() - moveSpeedValue, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
             break;
             //-- [J] --> Decrease Velocity in Y Axis
-            case (int(';')):
+            case (int('g')):
                 status.resetError();
                 robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() + moveSpeedValue, robot.accessRotationSpeed());
             break;
-            //-- [k] --> Pause Key
-            case (int('k')):
+            //-- [j] --> Reset Key
+            case (int('j')):
                 robot.setVelocity(0, 0, 0);
-                // robot.resetSpeed();
+                robot.resetPosition();
+                i = -1;
             break;
             //-- [Q] --> Quit Key
-            case 113:
+            case (int('q')):
                 destroyAllWindows();
                 return 0;
             break;
@@ -158,6 +146,7 @@ int World::updateWindow() {
         if ( mouseFlag == 0 || mouseFlag == -1 || mouseFlag == 2){
             robot.resetSpeed();
         }
+        cout << "i : " << i << endl;
         robot.Action();
         updateWindow();
     } else {
@@ -249,9 +238,9 @@ void World::Mouse(int event, int x, int y, int flags){
                 break;
                 case EVENT_MOUSEHWHEEL:
                     if (getMouseWheelDelta(flags) < 0){
-                        robot.setTetha(+mouseRotationValue * M_PI / 180);
+                        robot.setTetha(robot.accessTetha() + mouseRotationValue * M_PI / 180);
                     } else {
-                        robot.setTetha(-mouseRotationValue * M_PI / 180);
+                        robot.setTetha(robot.accessTetha() - mouseRotationValue * M_PI / 180);
                     }
                 break;
                 case EVENT_MBUTTONDOWN:
@@ -266,31 +255,11 @@ void World::Mouse(int event, int x, int y, int flags){
                 break;
                 //-- Double Click Left Button to Decrease Tetha
                 case EVENT_LBUTTONDOWN:
-                    robotSize += 0.05;
-                    clickAreaRadius += 0.05 * modelScale;
+                    robot.setTetha(robot.accessTetha() + mouseRotationValue * M_PI / 180);
                 break;
                 //-- Double Click Right Button to Increase Tetha
                 case EVENT_RBUTTONDOWN:
-                    robotSize -= 0.05;
-                    clickAreaRadius -= 0.05 * modelScale;
-                break;
-                case EVENT_MBUTTONDOWN:
-                    mouseFlag = 2;
-                break;
-            }
-        } else {
-            switch(event){
-                case EVENT_MOUSEMOVE:
-                    robot.setX(x / modelScale);
-                    robot.setY(y / modelScale);
-                break;
-                //-- Double Click Left Button to Decrease Tetha
-                case EVENT_LBUTTONDOWN:
-                    robot.setTetha(+mouseRotationValue * M_PI / 180);
-                break;
-                //-- Double Click Right Button to Increase Tetha
-                case EVENT_RBUTTONDOWN:
-                    robot.setTetha(-mouseRotationValue * M_PI / 180);
+                    robot.setTetha(robot.accessTetha() - mouseRotationValue * M_PI / 180);
                 break;
                 case EVENT_MBUTTONDOWN:
                     mouseFlag = -1;

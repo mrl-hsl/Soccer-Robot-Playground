@@ -55,8 +55,7 @@ Field::Field(){
 //--Makes the Field
 void Field::fieldCreate(){
     //-- Creates the Window
-    Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, 1.0);
-
+    Ground = Mat(windowWidth * modelScale, windowLength * modelScale, CV_8UC3, Scalar(fieldBGBlue, fieldBGGreen, fieldBGRed));
     //--------------
     //--| Points |--
     //--------------
