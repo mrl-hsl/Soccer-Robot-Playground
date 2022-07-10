@@ -5,4 +5,5 @@
   Soccer-Robot-Playground
   <br>
 </h1>
-<img alt="platform" src="https://img.shields.io/badge/Platform-linux--64-blue">
+<a href=""><img src="https://img.shields.io/badge/Platform-linux--64-blue" alt="HSL" width="130"></a>
+
