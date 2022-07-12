@@ -30,7 +30,7 @@
   
   - Real World : 
     - in this scope , program display the soccer field with an agent (a robot sample) inside it.
-    field's coordinate is based on
+    field's coordinate is based on RoboCup soccer humanoid league laws 2022.
       
   - Model World
   
