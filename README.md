@@ -25,7 +25,11 @@
   
 # Introduction
 
-Soccer-Robot-Playground
+
+  Soccer Robot Playground is a simulation of world model which includes two section of grounds.
+  - Real World
+  - Model World
+
 
 # Dependencies
 # Program Headers
