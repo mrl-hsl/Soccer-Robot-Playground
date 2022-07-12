@@ -18,6 +18,7 @@
 # Table Switch
 
 - [About World Model](#about)
-
+- [Primary Dependencies](#dependencies)
   
 # About
+# Dependencies
