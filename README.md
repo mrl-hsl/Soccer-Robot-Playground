@@ -19,10 +19,12 @@
 
 - [Introduction](#introduction)
 - [Primary Dependencies](#dependencies)
+- [Program Headers](#program-headers)
 - [How To Run](#how-to-run)
-- [Code Headers](#code-headers)
+- [Developers](#developers)
   
 # Introduction
 # Dependencies
+# Program Headers
 # How To Run
-# Code Headers
+# Developers
