@@ -17,8 +17,10 @@
 
 # Table Switch
 
-- [About World Model](#about)
+- [Introduction](#introduction)
 - [Primary Dependencies](#dependencies)
+- [How To Run](#how-to-run)
   
-# About
+# Introduction
 # Dependencies
+# How To Run
