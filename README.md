@@ -27,8 +27,13 @@
 
 
   Soccer Robot Playground is a simulation of world model which includes two section of grounds.
-  - Real World
+  
+  - Real World : 
+    - in this scope , program display the soccer field with an agent (a robot sample) inside it.
+    field's coordinate is based on
+      
   - Model World
+  
 
 
 # Dependencies
