@@ -25,12 +25,12 @@
   
 # Introduction
 
-
   Soccer Robot Playground is a simulation of world model which includes two section of grounds.
   
   - Real World : 
-    - in this scope , program display the soccer field with an agent (a robot sample) inside it.
-    field's coordinate is based on RoboCup soccer humanoid league laws 2022.
+    - in this scope , program display the soccer field with an agent (a robot sample) inside it.\
+    Field's coordinate is based on RoboCup soccer humanoid league laws 2022 and the agent is surrounded by a border that consist the absolute 
+    playground area.
       
   - Model World
   
