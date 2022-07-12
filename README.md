@@ -34,11 +34,14 @@
     The features of the Real World are Movement by keyboard , Transition by mouse and a Helpwindow for declaring the keys 
     and represent the robot exact location.
       
-  - Model World
+  - Model World :
   
 
-
 # Dependencies
+
+This project is completely based on C++ language and we have hardly tried to write the codes with simple syntax to make it
+easier for understanding and help beginners to develop it much better.
+
 # Program Headers
 # How To Run
 # Developers
