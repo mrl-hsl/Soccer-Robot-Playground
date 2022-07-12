@@ -30,7 +30,9 @@
   - Real World : 
     - in this scope , program display the soccer field with an agent (a robot sample) inside it.\
     Field's coordinate is based on RoboCup soccer humanoid league laws 2022 and the agent is surrounded by a border that consist the absolute 
-    playground area.
+    playground area.\
+    The features of the Real World are Movement by keyboard , Transition by mouse and a Helpwindow for declaring the keys 
+    and represent the robot exact location.
       
   - Model World
   
