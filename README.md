@@ -53,23 +53,25 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
     ```
      <iostream> <sstream> <iomanip> <string> <chrono> <thread> <vector> <cmath> 
     ```\
-  They are totaly exist in Config.hpp and declaring inside every headers.\
+  They are totaly exist in Config.hpp and declaring inside every headers.
     
 # Program Headers
 
 All of the headers have connection with each other like a chain and call the other one.\
-Main.cpp , make an object of world with endless circulation.\
+Main.cpp , make an object of world with endless circulation.
 
   - Config.hpp
     - It includes all libraries & workspaces & all of global variables that be used in other headers.
   - Field.hpp
     - This header contain field's class code to draw the borders which scope declaration is inside Field.cpp.
   - Robot.hpp
-    - original agent class with velocity and movement function are in this header.
+    - Original agent class with velocity and movement function are in this header.
   - Model.hpp
+    - This header is derivated from Robot.hpp but with less options and variables.
   - World.hpp
-  - Helpwindow.hpp
-    - test
+    - Actually it's the main file of program that include drawing matrix and functions and MouseCallBack section ...
+  - HelpWindow.hpp
+    - class of displaying notes and status of agent.
 
   
 
