@@ -48,7 +48,12 @@
 This project is completely based on [C++ language](https://cplusplus.com/) and we have hardly tried to write the codes with simple syntax to make it
 easier for understanding and help beginners to develop it much better.\
 Most part of the program is powered by OpenCV version 4 in C++ form. To make it install , you can use 
-this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-18-04-3i7l).
+this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-18-04-3i7l).\
+  -All of the libraries are contained in this project :
+    ```bash
+      
+    ```
+
 
 # Program Headers
 # How To Run
