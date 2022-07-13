@@ -43,6 +43,7 @@
   To get more information and explanation about the World Model , refer to the Document of project.
   
 
+
 # Dependencies
 The operation system is linux-64 bit and developed on [Ubuntu 22](https://ubuntu.com/) core.\
 This project is completely based on [C++ language](https://cplusplus.com/) and we have hardly tried to write the codes with simple syntax to make it
@@ -54,6 +55,8 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
      <iostream> <sstream> <iomanip> <string> <chrono> <thread> <vector> <cmath> 
     ```\
   They are totaly exist in Config.hpp and declaring inside every headers.
+  
+  
     
 # Program Headers
 
@@ -72,9 +75,24 @@ Main.cpp , make an object of world with endless circulation.
     - Actually it's the main file of program that include drawing matrix and functions and MouseCallBack section ...
   - HelpWindow.hpp
     - class of displaying notes and status of agent.
-
-  
-
-
+    
+    
 # How To Run
+
+At first let's download the project from Github :
+```
+$ sudo git clone https://github.com/mrl-hsl/Soccer-Robot-Playground.git
+```
+
+There is a Makefile besides the headers and cpp files ; which will be used for compiling all of headers together.\
+In order to run the program just open the terminal in the exact directory and then :
+```
+& make
+```
+Automatically windows will appear and run !!\
+And if you decide to remove the compiled files :
+```
+& make clean
+```
+
 # Developers
