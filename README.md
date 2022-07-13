@@ -28,13 +28,15 @@
   Soccer Robot Playground is a simulation of world model which includes two section of grounds.
   
   - Real World : 
-    - in this scope , program display the soccer field with an agent (a robot sample) inside it.\
+    - In this scope , program display the soccer field with an agent (a robot sample) inside it.\
     Field's coordinate is based on RoboCup soccer humanoid league laws 2022 and the agent is surrounded by a border that consist the absolute 
     playground area.\
     The features of the Real World are Movement by keyboard , Transition by mouse and a Helpwindow for declaring the keys 
-    and represent the robot exact location.
+    and represent the robot exact location on screen.
       
   - Model World :
+    - Robot modeling is a part of program which make a simple shape of an agent and switch the location of shape into the original one.\
+    To comprehend that what does modeling exactly do , consider the airplane's radar so that the radar modeling airplanes nearby the own system
   
 
 # Dependencies
