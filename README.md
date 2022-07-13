@@ -44,7 +44,7 @@
   
 
 # Dependencies
-
+The operation system is linux-64 bit and developed on [Ubuntu 22](https://ubuntu.com/) core.\
 This project is completely based on [C++ language](https://cplusplus.com/) and we have hardly tried to write the codes with simple syntax to make it
 easier for understanding and help beginners to develop it much better.\
 Most part of the program is powered by OpenCV version 4 in C++ form. To make it install , you can use 
@@ -53,7 +53,7 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
     ```
      <iostream> <sstream> <iomanip> <string> <chrono> <thread> <vector> <cmath> 
     ```\
-They are totaly exist in Config.hpp and declaring inside every headers.
+  They are totaly exist in Config.hpp and declaring inside every headers.\
     
 # Program Headers
   - Config.hpp\
