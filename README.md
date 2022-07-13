@@ -36,7 +36,11 @@
       
   - Model World :
     - Robot modeling is a part of program which make a simple shape of an agent and switch the location of shape into the original one.\
-    To comprehend that what does modeling exactly do , consider the airplane's radar so that the radar modeling airplanes nearby the own system
+    To comprehend that what does modeling exactly do , consider the airplane's radar so that the radar make a shape of airplane on 
+    it's screen nearby the own system.\
+    But the impotant note is that the modeling system will upgrade only by agent's location in every frames !!
+    
+  To get more information and explanation about the World Model , refer to the Document of project.
   
 
 # Dependencies
