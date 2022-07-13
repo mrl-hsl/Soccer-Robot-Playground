@@ -64,7 +64,9 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
   - Model.hpp
   - World.hpp
   - Helpwindow.hpp
-  - Main.hpp
+    - test
+All of the headers have connection with each other like a chain and call the other one.\
+Main.cpp , make an object of world with endless circulation.
   
 
 
