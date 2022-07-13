@@ -60,6 +60,12 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
     - It includes all libraries & workspaces & all of global variables that be used in other headers.
   - Field.hpp
     - This header contain field's class code to draw the borders which scope declaration is inside Field.cpp.
+  - Robot.hpp
+  - Model.hpp
+  - World.hpp
+  - Helpwindow.hpp
+  - Main.hpp
+  
 
 
 # How To Run
