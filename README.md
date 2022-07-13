@@ -56,6 +56,10 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
   They are totaly exist in Config.hpp and declaring inside every headers.\
     
 # Program Headers
+
+All of the headers have connection with each other like a chain and call the other one.\
+Main.cpp , make an object of world with endless circulation.\
+
   - Config.hpp
     - It includes all libraries & workspaces & all of global variables that be used in other headers.
   - Field.hpp
@@ -65,8 +69,7 @@ this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-
   - World.hpp
   - Helpwindow.hpp
     - test
-All of the headers have connection with each other like a chain and call the other one.\
-Main.cpp , make an object of world with endless circulation.
+
   
 
 
