@@ -97,6 +97,12 @@ And if you decide to remove the compiled files :
 
 # Developers
 
-<td align="center"><a href="https://github.com/maze80"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100px;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a><br /></td>
 
-<td align="center"><a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100px;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a><br /></td>
+
+<a href="https://github.com/maze80"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100px;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a><br />
+
+<p align="center">
+
+<a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100px;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a><br/>
+
+</p>
