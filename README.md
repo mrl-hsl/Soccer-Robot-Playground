@@ -65,6 +65,7 @@ Main.cpp , make an object of world with endless circulation.\
   - Field.hpp
     - This header contain field's class code to draw the borders which scope declaration is inside Field.cpp.
   - Robot.hpp
+    - original agent class with velocity and movement function are in this header.
   - Model.hpp
   - World.hpp
   - Helpwindow.hpp
