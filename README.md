@@ -97,10 +97,11 @@ And if you decide to remove the compiled files :
 
 # Developers
 
-<p align="right">
-<a href="https://github.com/maze80/Soccer-Robot-Playground"><img src="https://img.shields.io/badge/Version-1.2.1-brightgreen" alt="HSL" width="100"></a>
-<a href="https://github.com/maze80"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100px;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a><br />
+<p align="center">
 
-<a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100px;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a><br/>
+<a href="https://github.com/maze80"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a>
+
+<a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a>
+
 </p>
 
