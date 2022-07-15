@@ -2,8 +2,8 @@
 #define WORLD_HPP
 
 //-- Includes Needed Files
-#include "Field.hpp"
 #include "HelpWindow.hpp"
+#include "Field.hpp"
 #include "Robot.hpp"
 
 class World {
@@ -11,21 +11,11 @@ private:
     Field field;
     Robot robot;
     HelpWindow status;
-    Mat Agent;
-    double agentCenterX;
-    double agentCenterY;
-    double agentRotation;
-    double agentLeftX;
-    double agentLeftY;
-    double agentRightX;
-    double agentRightY;
-    double agentDirectionX;
-    double agentDirectionY;
-    long int i;
+    Mat realWorld;
 public:
     World();
     int updateWindow();
-    void robotStateUpdate();
+    void create();
     static void mouseAttacher(int ,int ,int ,int ,void *);
     void Mouse(int ,int ,int ,int);
 };

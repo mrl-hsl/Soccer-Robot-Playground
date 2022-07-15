@@ -8,52 +8,43 @@ class Robot {
     private:
         double x;
         double y;
-        double robotLastX;
-        double robotLastY;
         double theta;
-        double robotLastTetha;
         int checkValue;
         string errorInfo;
-        double movementSpeedX;
-        double movementSpeedY;
-        double globalmovementSpeedX;
-        double globalmovementSpeedY;
-        double rotationSpeed;
-        double lastMovementSpeedX;
-        double lastMovementSpeedY;
-        double lastRotationSpeed;
-        double updateTime;
+        double vX;
+        double vY;
+        double vTheta;
+        double tempX;
+        double tempY;
+        double tempTheta;
+        double tempVX;
+        double tempVY;
+        double tempVTheta;
     public:
         //-- Config Robot's Spawn Position
-        void robotSet();
-        //-- Save Current Position before Movement
-        void savePosition(double, double, double);
+        void setPosition(double, double, double);
+        //-- Stores Last Position Before Updating Window
+        void storePosition(double, double, double, double, double, double);
         //-- Position Accessors
         double accessX();
         double accessY();
         double accessTheta();
+        double accessVX();
+        double accessVY();
+        double accessVTheta();
         void setX(double);
         void setY(double);
-        void setTetha(double);
-        double accessMovementSpeedX();
-        double accessMovementSpeedY();
-        double accessRotationSpeed();
+        void setTheta(double);
         //-- Border Impact Check
         int borderCheck();
         void resetCheck();
-        //-- Reset Robot's Speed
-        void resetSpeed();
         //-- Error Output
         string error();
         //-- Seek Movement and Rotation Changes
         int state();
-        //-- Reset Robot's Position to Spawn Point
-        void resetPosition();
-        //-- Set Robot's Refresh Time
-        void setTime(double);
         //-- Set Robot's Velocity (Movement Velocity, Rotation Velocity)
         void setVelocity(double, double, double);
-        void Action();
+        void update();
 };
 
 #endif // ROBOT_HPP

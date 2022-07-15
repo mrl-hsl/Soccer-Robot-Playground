@@ -16,6 +16,5 @@ main: main.o Field.o World.o Robot.o HelpWindow.o
 
 run:
 	./main
-
 clean:
 	rm *.o main

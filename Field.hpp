@@ -15,5 +15,3 @@ class Field {
 };
 
 #endif // FIELD_HPP
-
-

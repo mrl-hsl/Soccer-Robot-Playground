@@ -1,8 +1,7 @@
 #ifndef CONFIGS_HPP
 #define CONFIGS_HPP
 //-- Config File
-//-- Here You Can Config Program 
-//-- Don't Remember to Include this File
+//-- Don't Forget to Include This File
 
 //-----------------
 //--| Libraries |--
@@ -35,21 +34,23 @@ extern double robotLineSize;
 //- for 2k Monitors := 180
 //- for 1k Monitors := 140
 extern double modelScale;
-//-- GameMode :
-//- 0 : Position Control
-//- 1 : Velocity Control
-extern double modelMode;
 //-- Font Size Scale :
 extern double fontSize;
 //-- Lines of Model Scale :
 extern double lineSize;
 //-- Blue, Green, Red
-extern double fieldBlue;
-extern double fieldGreen;
-extern double fieldRed;
+extern double fieldLineBlue;
+extern double fieldLineGreen;
+extern double fieldLineRed;
 extern double fieldBGBlue;
 extern double fieldBGGreen;
 extern double fieldBGRed;
+extern double enemyGoalBlue;
+extern double enemyGoalGreen;
+extern double enemyGoalRed;
+extern double teamGoalBlue;
+extern double teamGoalGreen;
+extern double teamGoalRed;
 //-- Refresh Rate (ms)
 extern double refreshRate;
 //-- Mouse Click Flag
@@ -81,7 +82,7 @@ extern double rotateSpeedValue;
 //-------------------------
 //--| Movements Configs |--
 //-------------------------
-//-- Robot Move (in Pixels) -- Should be 1      [remove this and down one]
+//-- Robot Move (in Pixels)
 extern double robotMoveValue;
 //-- Robot Rotation (in Degree) -- Should be 1
 extern double robotRotationValue;
@@ -101,6 +102,8 @@ extern double fieldPadding;
 //-- Penalty Area (in Meter)
 extern double penaltyAreaWidth;
 extern double penaltyAreaLength;
+extern double penaltyMarkDistance;
+extern double penaltyMarkRadius;
 //-- Goal Area (in Meter)
 extern double goalAreaWidth;
 extern double goalAreaLength;

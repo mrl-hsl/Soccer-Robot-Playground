@@ -7,22 +7,31 @@
 class HelpWindow {
     private:
         Mat helpWin;
-        double noWindowInfo;
-        double positionW;
-        double positionS;
-        double positionD;
-        double positionA;
-        double positionP;
-        double positionC;
-        double positionM;
-        double positionR;
-        double positionQ;
-        double positionText;
-        double positionStatus;
-        double positionSpeed;
-        double positionError;
-        double positionStatusCircle;
         double Scale;
+        double keySize;
+        double keyLineSize;
+        double keyPaddingLength;
+        double keyPaddingWidth;
+        double keyPositionX;
+        double keyPositionY;
+        double keyPressedValue;
+        double keyFreeValue;
+        double textPositionLength;
+        double textPositionWidth;
+        double keyTextBlue;
+        double keyTextGreen;
+        double keyTextRed;
+        double keyInfoPositionX;
+        double keyInfoPositionY;
+        double spaceBetweenLines;
+        double activityCirclePosition;
+        double activityStatusPosition;
+        double speedPositionLength;
+        double statusPosition;
+        double speedPositionWidth;
+        double middleLength;
+        double middleWidth;
+        double activityCircleRadius;
         string status;
         string error;
         string speedStatus;
@@ -36,7 +45,6 @@ class HelpWindow {
         int statusCircleSize;
     public:
         void updateHelpWindow(bool);
-        int activityCircle();
         HelpWindow();
         //-- Update Status of Changes
         void updateStatus(int, double);
