@@ -65,7 +65,7 @@ double rotateSpeedValue = 0.4;
 
 //-- Spawning Configuration in Constructor
 World::World() {
-    robot.setPosition(xSpawn * windowLength, ySpawn * windowWidth, 0);
+    robot.setPosition(0, 0, M_PI);
     robot.setVelocity(0, 0, 0);
     field.fieldCreate();
     create();
@@ -81,6 +81,7 @@ int World::updateWindow() {
         //-- Update Window Frame's Refresh Rate :
         sleep_for(milliseconds((int)refreshRate * 1000));
         create();
+        robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
         if (robot.accessVX() != 0 || robot.accessVY() != 0 || robot.accessVTheta() != 0) {
             status.updateHelpWindow(true);
         } else {
@@ -98,32 +99,26 @@ int World::updateWindow() {
             }
             switch(waitKey(1)) {
                 case (int('l')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() + rotateSpeedValue);
                 break;
                 case (int('j')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() - rotateSpeedValue);
                 break;
                 case (int('i')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX() + moveSpeedValue, robot.accessVY(), robot.accessVTheta());
                 break;
                 case (int(';')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX(), robot.accessVY() + moveSpeedValue, robot.accessVTheta());
                 break;
                 case (int(',')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX() - moveSpeedValue, robot.accessVY(), robot.accessVTheta());
                 break;
                 case (int('h')):
-                    robot.storePosition(robot.accessX(), robot.accessY(), robot.accessTheta(), robot.accessVX(), robot.accessVY(), robot.accessVTheta());
                     status.resetError();
                     robot.setVelocity(robot.accessVX(), robot.accessVY() - moveSpeedValue, robot.accessVTheta());
                 break;
@@ -132,7 +127,7 @@ int World::updateWindow() {
                     robot.setVelocity(0, 0, 0);
                 break;
                 case (int('r')):
-                    robot.setPosition(xSpawn * windowLength, ySpawn * windowWidth, 0);
+                    robot.setPosition(0, 0, M_PI);
                     robot.setVelocity(0, 0, 0);
                 break;
                 //-- [Q] --> Quit Key
@@ -151,7 +146,6 @@ int World::updateWindow() {
             status.updateError(robot.error());
         }
     }
-    cout << "end @" << endl;
     return 0;
 }
 
@@ -162,29 +156,30 @@ void World::create() {
     //-------------
     //--| World |--
     //-------------
-    double agentCenterX = robot.accessX();
-    double agentCenterY = robot.accessY();
+    int agentCenterXPixel = (-robot.accessX() + (windowLength * half)) * modelScale;
+    int agentCenterYPixel = (robot.accessY() + (windowWidth * half)) * modelScale;
     double agentTheta = robot.accessTheta();
-    double agentDirectionX;
-    double agentDirectionY;
-    double agentRightX;
-    double agentRightY;
-    double agentLeftX;
-    double agentLeftY;
+    int agentDirectionXPixel;
+    int agentDirectionYPixel;
+    int agentRightXPixel;
+    int agentRightYPixel;
+    int agentLeftXPixel;
+    int agentLeftYPixel;
+    int robotSizePixel = robotSize * modelScale;
     //-- Point Center
-    Point agentCenter(agentCenterX * modelScale, agentCenterY * modelScale);
+    Point agentCenter(agentCenterXPixel, agentCenterYPixel);
     //-- Point Direction
-    agentDirectionX = agentCenterX - robotSize * cos(agentTheta);
-    agentDirectionY = agentCenterY - robotSize * sin(agentTheta);
-    Point agentDirection(agentDirectionX * modelScale, agentDirectionY * modelScale);
+    agentDirectionXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta);
+    agentDirectionYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta);
+    Point agentDirection(agentDirectionXPixel, agentDirectionYPixel);
     //-- Point Right
-    agentRightX = agentCenterX - robotSize * cos(agentTheta + (robotSharpness * M_PI / 180));
-    agentRightY = agentCenterY - robotSize * sin(agentTheta + (robotSharpness * M_PI / 180));
-    Point agentRight(agentRightX * modelScale, agentRightY * modelScale);
+    agentRightXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta + (robotSharpness * M_PI / 180));
+    agentRightYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta + (robotSharpness * M_PI / 180));
+    Point agentRight(agentRightXPixel, agentRightYPixel);
     //-- Point Left
-    agentLeftX = agentCenterX - robotSize * cos(agentTheta - (robotSharpness * M_PI / 180));
-    agentLeftY = agentCenterY - robotSize * sin(agentTheta - (robotSharpness * M_PI / 180));
-    Point agentLeft(agentLeftX * modelScale, agentLeftY * modelScale);
+    agentLeftXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta - (robotSharpness * M_PI / 180));
+    agentLeftYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta - (robotSharpness * M_PI / 180));
+    Point agentLeft(agentLeftXPixel, agentLeftYPixel);
     //-- DR Line
     line(realWorld, agentDirection, agentRight, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     //-- DL Line
@@ -193,7 +188,6 @@ void World::create() {
     line(realWorld, agentCenter, agentRight, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
     //-- OL Line
     line(realWorld, agentCenter, agentLeft, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);
-    Point agentInfo(agentCenterX * modelScale, (agentCenterY + 0.3) * modelScale); 
     imshow("World", realWorld);
 }
 

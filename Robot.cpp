@@ -65,17 +65,17 @@ double Robot::accessVTheta() {
 //-- Check Impact with Border
 int Robot::borderCheck() {
     //-- if Impaction then Move to Last Position
-   if (x * modelScale <= fieldPadding * modelScale ){
-       x = tempX ;
+   if (x >= fieldLength / 2){
+       x = tempX;
        checkValue = -1;
-   } else if (x * modelScale >= (windowLength - fieldPadding) * modelScale){
-       x = tempX ;
+   } else if (x  <= -(fieldLength / 2)){
+       x = tempX;
        checkValue = 1;
-   } else if (y * modelScale <= fieldPadding * modelScale){
-       y = tempY ;
+   } else if (y <= -(fieldWidth / 2)){
+       y = tempY;
        checkValue = 2;
-   } else if (y * modelScale >= (windowWidth - fieldPadding) * modelScale){
-       y = tempY ;
+   } else if (y >= fieldWidth / 2){
+       y = tempY;
        checkValue = -2;
    } else {
        checkValue = 0;
@@ -140,7 +140,7 @@ void Robot::update() {
     //-- Movement Part
     double globalVX = vX * cos(theta) + vY * sin(-theta);
     double globalVY = vY * cos(-theta) + vX * sin(theta);
-    x = x - globalVX * refreshRate;
+    x = x + globalVX * refreshRate;
     y = y - globalVY * refreshRate;
     //-- Rotation Part
     theta += vTheta * refreshRate;
