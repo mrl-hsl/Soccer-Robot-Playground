@@ -16,6 +16,8 @@ class Robot {
         string errorInfo;
         double movementSpeedX;
         double movementSpeedY;
+        double globalmovementSpeedX;
+        double globalmovementSpeedY;
         double rotationSpeed;
         double lastMovementSpeedX;
         double lastMovementSpeedY;

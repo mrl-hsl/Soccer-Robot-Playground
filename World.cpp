@@ -24,7 +24,7 @@ double fieldBlue = 100;
 double fieldGreen = 100;
 double fieldRed = 100;
 //-- Refresh Rate (ms)
-double refreshRate = 20.0/1000;
+double refreshRate = 1.0 / 100.0;
 //-- Mathematical 
 double rad = 0.0174533;
 //-- Mouse Click Flag
@@ -51,6 +51,9 @@ double robotGreen = 255;
 double robotRed = 127;
 //-- Color Value When Clicked
 int clickedColorValue = 0;
+//-- Speed Increase/Decrease Value
+double moveSpeedValue = 0.35;
+double rotateSpeedValue = 0.4;
 
 //-- Spawning Configuration in Constructor
 World::World() {
@@ -95,26 +98,25 @@ int World::updateWindow() {
             status.updateStatus(0, 0);
         }
         switch(waitKey(1)) {
-            
             //-- [W] --> Increase Movement Speed Key 
-            case 119:
+            case (int('w')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() + 1, robot.accessMovementSpeedY() + 1, robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX() + moveSpeedValue, robot.accessMovementSpeedY() + moveSpeedValue, robot.accessRotationSpeed());
             break;
             //-- [S] --> Decrease Movement Speed Key
             case 115:
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() - 1, robot.accessMovementSpeedY() - 1, robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX() - moveSpeedValue, robot.accessMovementSpeedY() - moveSpeedValue, robot.accessRotationSpeed());
             break;
             //-- [D] --> Increase Rotation Speed Key
-            case 100:
+            case int('j'):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() + 1);
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() + moveSpeedValue);
             break;
             //-- [A] --> Decrease Rotation Speed Key
-            case 97:
+            case (int('l')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() - 1);
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY(), robot.accessRotationSpeed() - moveSpeedValue);
             break;
             //-- [R] --> Position Reset Key
             case 114:
@@ -123,34 +125,38 @@ int World::updateWindow() {
                 i = -1;
             break;
             //-- [O] --> Increase Velocity in X Axis
-            case 111:
+            case (int('i')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() + 1, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX() + moveSpeedValue, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
             break;
-            //-- [K] --> Increase Velocity in Y Axis
-            case 107:
+            //-- [h] --> Increase Velocity in Y Axis
+            case (int('h')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() + 1, robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() - moveSpeedValue, robot.accessRotationSpeed());
             break;
             //-- [I] --> Decrease Velocity in X Axis
-            case 105:
+            case (int(',')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX() - 1, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX() - moveSpeedValue, robot.accessMovementSpeedY(), robot.accessRotationSpeed());
             break;
             //-- [J] --> Decrease Velocity in Y Axis
-            case 106:
+            case (int(';')):
                 status.resetError();
-                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() - 1, robot.accessRotationSpeed());
+                robot.setVelocity(robot.accessMovementSpeedX(), robot.accessMovementSpeedY() + moveSpeedValue, robot.accessRotationSpeed());
             break;
-            //-- [P] --> Pause Key
-            case 112:
-                robot.resetSpeed();
+            //-- [k] --> Pause Key
+            case (int('k')):
+                robot.setVelocity(0, 0, 0);
+                // robot.resetSpeed();
             break;
             //-- [Q] --> Quit Key
             case 113:
                 destroyAllWindows();
                 return 0;
             break;
+        }
+        if ( mouseFlag == 0 || mouseFlag == -1 || mouseFlag == 2){
+            robot.resetSpeed();
         }
         robot.Action();
         updateWindow();
@@ -225,7 +231,6 @@ void World::Mouse(int event, int x, int y, int flags){
                         clickedColorValue = 100;
                         mouseFlag = -1;
                     }
-                    cout << mouseDistance << endl;
                 break;
             }
         } else if (mouseFlag == -1) {
