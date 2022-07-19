@@ -65,20 +65,21 @@ double Robot::accessVTheta() {
 //-- Check Impact with Border
 int Robot::borderCheck() {
     //-- if Impaction then Move to Last Position
-   if (x >= fieldLength / 2){
-       x = tempX;
+   if (x > fieldLength / 2){
+       x = tempX - 0.01;
        checkValue = -1;
-   } else if (x  <= -(fieldLength / 2)){
-       x = tempX;
+   } else if (x  < -(fieldLength / 2)){
+       x = tempX + 0.01;
        checkValue = 1;
-   } else if (y <= -(fieldWidth / 2)){
-       y = tempY;
+   } else if (y < -(fieldWidth / 2)){
+       y = tempY + 0.01;
        checkValue = 2;
-   } else if (y >= fieldWidth / 2){
-       y = tempY;
-       checkValue = -2;
+   } else if (y > fieldWidth / 2){
+       y = tempY - 0.01;
+       checkValue = 2;
    } else {
        checkValue = 0;
+       cout << " tx : " << tempX << " ty : " << tempY << " tx : " << tempTheta << endl;
    }
    switch(checkValue){
         case -1:

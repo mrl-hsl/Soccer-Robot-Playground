@@ -204,7 +204,13 @@ void World::Mouse(int event, int x, int y, int flags){
             switch(event){
                 //-- Click Left Button to Pick Agent
                 case EVENT_LBUTTONDOWN:
-                    mouseDistance = sqrt(pow(robot.accessX() * modelScale - x, 2) + pow(robot.accessY() * modelScale - y, 2));
+                    // cout << "x : " << -(x - windowLength * half * modelScale) << " y : " << (y - windowWidth * half * modelScale) << endl;
+                    cout << mouseDistance << endl;
+                    cout << "x2 : " << sqrt(pow(robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2)) << endl;
+                    cout << "y2 : " << sqrt(pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2)) << endl;
+                    cout << robot.accessX() << endl;
+                    cout << "--------------------" << endl;
+                    mouseDistance = sqrt(pow(-robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2) + pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2));
                     if (mouseDistance < clickAreaRadius) {
                         clickedColorValue = 100;
                         mouseFlag = -1;
@@ -215,8 +221,8 @@ void World::Mouse(int event, int x, int y, int flags){
             switch(event){
                 //-- Set Agent Position to Cursor Position
                 case EVENT_MOUSEMOVE:
-                    robot.setX(x / modelScale);
-                    robot.setY(y / modelScale);
+                    robot.setX(-(x - windowLength * half * modelScale) / modelScale);
+                    robot.setY((y - windowWidth * half * modelScale) / modelScale);
                 break;
                 //-- Click Left Button to Place Agent
                 case EVENT_LBUTTONUP:
