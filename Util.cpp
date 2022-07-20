@@ -1,32 +1,32 @@
 #include "Util.hpp"
 
-double modAngle(double tetha) {
-    tetha %= (2 * M_PI);
-    if (tetha >= M_PI) {
-        tetha -= 2 * M_PI;
+double modAngle(double theta) {
+    theta = fmod(theta, (2 * M_PI));
+    if (theta >= M_PI) {
+        theta -= 2 * M_PI;
     }
-    return tetha;
+    return theta;
 }
 
-vector <double> poseGlobal(vector <double> pGlobal, vector <double> pRelative) {
-    vector <double> resultGlobal;
-    double cosT = cos(pGlobal2);
-    double sinT = cos(pGlobal2);
-    resultGLobal[0] = pGlobal[0] + cosT * pRelative[0] - sinT * pRelative[1]);
-    resultGLobal[1] = pGlobal[1] + sinT * pRelative[0] + cosT * pRelative[1]);
-    resultGLobal[2] = pGlobal[2] + pRelative[2];
-    return resultGLobal;
+vector <double> poseGlobal(vector <double> pRelative, vector <double> pose) {
+    vector <double> globalPose(3, 0);
+    double ca = cos(pose[2]);
+    double sa = sin(pose[2]);
+    globalPose[0] = pose[0] + ca * pRelative[0] - sa * pRelative[1];
+    globalPose[1] = pose[1] + sa * pRelative[0] + ca * pRelative[1];
+    globalPose[2] = pose[2] + pRelative[2];
+    return globalPose;
 }
 
-vector <double> poseRelative(vector <double> pGlobal1, vector <double> pGlobal2) {
-    vector <double> resultRelative;
-    double cosT = cos(pGlobal2);
-    double sinT = cos(pGlobal2);
-    double pX = pGlobal1[0] - pGlobal2[0];
-    double pY = pGlobal1[1] - pGlobal2[1];
-    double pT = pGlobal1[2] - pGlobal2[2];
-    resultRelative[0] = cosT * pX + sinT * pY;
-    resultRelative[1] = cosT * pY - sinT * pX;
-    resultRelative[2] = modAngle(pT);
-    return resultRelative;
+vector <double> poseRelative(vector <double> pGlobal, vector <double> pose) {
+    vector <double> relativePose(3, 0);
+    double ca = cos(pose[2]);
+    double sa = sin(pose[2]);
+    double pX = pGlobal[0] - pose[0];
+    double pY = pGlobal[1] - pose[1];
+    double pT = pGlobal[2] - pose[2];
+    relativePose[0] = ca * pX + sa * pY;
+    relativePose[1] = ca * pY - sa * pX;
+    relativePose[2] = modAngle(pT);
+    return relativePose;
 }
