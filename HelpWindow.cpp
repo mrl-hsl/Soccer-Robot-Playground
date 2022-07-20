@@ -72,7 +72,7 @@ HelpWindow::HelpWindow() {
     thetaPosWidth = helpWindowWidth * modelScale * 0.88;
     vXPosLength = helpWindowLength * modelScale * 0.7;
     vYPosLength = helpWindowLength * modelScale * 0.7;
-    vThetaPosLength = helpWindowLength * modelScale * 0.7;
+    vThetaPosLength = helpWindowLength * modelScale * 0.6;
     vXPosWidth = helpWindowWidth * modelScale * 0.96;
     vYPosWidth = helpWindowWidth * modelScale * 0.92;
     vThetaPosWidth = helpWindowWidth * modelScale * 0.88;

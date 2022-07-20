@@ -9,9 +9,9 @@ double robotMoveValue = 1;
 //-- Robot Rotation (in Degree) -- Should be 1, Change it for Making Time Faster
 double robotRotationValue = 1;
 //-- Max Movement Speed (in m/s)
-double maxMovementSpeed = 1;
+double maxMovementSpeed = 0.3;
 //-- Max Rotation Speed (in Degree/s)
-double maxRotationSpeed = 5;
+double maxRotationSpeed = 0.5;
 //-- Time Speed, Normal is Equal to 1
 double timeSpeed = 1;
 

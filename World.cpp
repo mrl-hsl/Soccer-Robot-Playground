@@ -60,8 +60,8 @@ double robotRed = 127;
 //-- Color Value When Clicked
 int clickedColorValue = 0;
 //-- Speed Increase/Decrease Value
-double moveSpeedValue = 0.2;
-double rotateSpeedValue = 0.4;
+double moveSpeedValue = 0.1;
+double rotateSpeedValue = 0.1;
 
 //-- Spawning Configuration in Constructor
 World::World() {
