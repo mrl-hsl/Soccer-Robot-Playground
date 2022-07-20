@@ -1,4 +1,5 @@
 #include "Robot.hpp"
+#include "Util.hpp"
 
 //-------------------------
 //--| Movements Configs |--
@@ -153,14 +154,9 @@ void Robot::update() {
     x = x + globalVX * refreshRate;
     y = y - globalVY * refreshRate;
     // -- Rotation Part
-    if (theta > 180) {
-        theta -= 360;
-    }
-    if (theta < -179) {
-        theta += 360;
-    }
     // cout << theta * 180 / M_PI << endl;
     theta += vTheta * refreshRate;
+    theta = modAngle(theta);
 }
 
 //-- Robot X Value Implementor
