@@ -29,7 +29,7 @@ double teamGoalBlue = 0;
 double teamGoalGreen = 220;
 double teamGoalRed = 220;
 //-- Refresh Rate (ms)
-double refreshRate = 20.0 / 1000.0;
+double refreshRate = 90.0 / 1000.0;
 //-- Mathematical 
 double rad = 0.0174533;
 //-- Mouse Click Flag
@@ -87,6 +87,8 @@ int World::updateWindow() {
         } else {
             status.updateHelpWindow(false);
         }
+        status.viewPosition(robot.accessX(), robot.accessY(), robot.accessTheta());
+        status.viewVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta());
         if (robot.borderCheck() == 0) {
             if (robot.state() == 1) {
                 status.updateStatus(1, robot.accessVX());
@@ -205,11 +207,11 @@ void World::Mouse(int event, int x, int y, int flags){
                 //-- Click Left Button to Pick Agent
                 case EVENT_LBUTTONDOWN:
                     // cout << "x : " << -(x - windowLength * half * modelScale) << " y : " << (y - windowWidth * half * modelScale) << endl;
-                    cout << mouseDistance << endl;
-                    cout << "x2 : " << sqrt(pow(robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2)) << endl;
-                    cout << "y2 : " << sqrt(pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2)) << endl;
-                    cout << robot.accessX() << endl;
-                    cout << "--------------------" << endl;
+                    // cout << mouseDistance << endl;
+                    // cout << "x2 : " << sqrt(pow(robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2)) << endl;
+                    // cout << "y2 : " << sqrt(pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2)) << endl;
+                    // cout << robot.accessX() << endl;
+                    // cout << "--------------------" << endl;
                     mouseDistance = sqrt(pow(-robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2) + pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2));
                     if (mouseDistance < clickAreaRadius) {
                         clickedColorValue = 100;

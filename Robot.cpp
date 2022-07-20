@@ -8,9 +8,9 @@ double robotMoveValue = 1;
 //-- Robot Rotation (in Degree) -- Should be 1, Change it for Making Time Faster
 double robotRotationValue = 1;
 //-- Max Movement Speed (in m/s)
-double maxMovementSpeed;
+double maxMovementSpeed = 1;
 //-- Max Rotation Speed (in Degree/s)
-double maxvTheta;
+double maxRotationSpeed = 5;
 //-- Time Speed, Normal is Equal to 1
 double timeSpeed = 1;
 
@@ -79,7 +79,7 @@ int Robot::borderCheck() {
        checkValue = 2;
    } else {
        checkValue = 0;
-       cout << " tx : " << tempX << " ty : " << tempY << " tx : " << tempTheta << endl;
+    //    cout << " tx : " << tempX << " ty : " << tempY << " tx : " << tempTheta << endl;
    }
    switch(checkValue){
         case -1:
@@ -131,9 +131,18 @@ int Robot::state() {
 
 //-- Set Robot's Velocity (Movement Velocity, Rotation Velocity) //set
 void Robot::setVelocity(double inputX, double inputY, double inputTheta) {
-    vX = inputX;
-    vY = inputY;
-    vTheta = inputTheta;
+    bool inLimit = true;
+    if (inputX > maxMovementSpeed || inputY > maxMovementSpeed || inputX < -maxMovementSpeed || inputY < -maxMovementSpeed || inputTheta > maxRotationSpeed || inputTheta < -maxRotationSpeed) {
+        inLimit = false;
+    }
+    if (inLimit == true) {
+        vX = inputX;
+        vY = inputY;
+        vTheta = inputTheta;
+    } else {
+        cout << "Maximum Speed Reached !" << endl;
+        errorInfo = "Maximum Speed Reached !";
+    }
 }
 
 //-- Updates Robot's Position
@@ -143,7 +152,14 @@ void Robot::update() {
     double globalVY = vY * cos(-theta) + vX * sin(theta);
     x = x + globalVX * refreshRate;
     y = y - globalVY * refreshRate;
-    //-- Rotation Part
+    // -- Rotation Part
+    if (theta > 180) {
+        theta -= 360;
+    }
+    if (theta < -179) {
+        theta += 360;
+    }
+    // cout << theta * 180 / M_PI << endl;
     theta += vTheta * refreshRate;
 }
 
