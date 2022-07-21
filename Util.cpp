@@ -1,6 +1,9 @@
 #include "Util.hpp"
 
 double modAngle(double theta) {
+    if (theta < 0) {
+        theta = theta + 2 * M_PI;
+    }
     theta = fmod(theta, (2 * M_PI));
     if (theta >= M_PI) {
         theta -= 2 * M_PI;
