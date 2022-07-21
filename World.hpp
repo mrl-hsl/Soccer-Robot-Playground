@@ -5,6 +5,7 @@
 #include "HelpWindow.hpp"
 #include "Field.hpp"
 #include "Robot.hpp"
+#include "Planner.hpp"
 
 class World {
 private:
@@ -12,6 +13,7 @@ private:
     Robot robot;
     HelpWindow status;
     Mat realWorld;
+    Planner planner;
 public:
     World();
     int updateWindow();
