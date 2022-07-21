@@ -158,8 +158,7 @@ void World::create() {
     //-------------
     //--| World |--
     //-------------
-    int agentCenterXPixel = (-robot.accessX() + (windowLength * half)) * modelScale;
-    int agentCenterYPixel = (robot.accessY() + (windowWidth * half)) * modelScale;
+    cv::Point agentCenterPixel = meter2Pixel(cv::Point2d(robot.accessX(), robot.accessY()));
     double agentTheta = robot.accessTheta();
     int agentDirectionXPixel;
     int agentDirectionYPixel;
@@ -169,18 +168,18 @@ void World::create() {
     int agentLeftYPixel;
     int robotSizePixel = robotSize * modelScale;
     //-- Point Center
-    Point agentCenter(agentCenterXPixel, agentCenterYPixel);
+    Point agentCenter(agentCenterPixel.x, agentCenterPixel.y);
     //-- Point Direction
-    agentDirectionXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta);
-    agentDirectionYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta);
+    agentDirectionXPixel = agentCenterPixel.x - robotSizePixel * cos(agentTheta);
+    agentDirectionYPixel = agentCenterPixel.y + robotSizePixel * sin(agentTheta);
     Point agentDirection(agentDirectionXPixel, agentDirectionYPixel);
     //-- Point Right
-    agentRightXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta + (robotSharpness * M_PI / 180));
-    agentRightYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta + (robotSharpness * M_PI / 180));
+    agentRightXPixel = agentCenterPixel.x - robotSizePixel * cos(agentTheta + (robotSharpness * M_PI / 180));
+    agentRightYPixel = agentCenterPixel.y + robotSizePixel * sin(agentTheta + (robotSharpness * M_PI / 180));
     Point agentRight(agentRightXPixel, agentRightYPixel);
     //-- Point Left
-    agentLeftXPixel = agentCenterXPixel - robotSizePixel * cos(agentTheta - (robotSharpness * M_PI / 180));
-    agentLeftYPixel = agentCenterYPixel - robotSizePixel * sin(agentTheta - (robotSharpness * M_PI / 180));
+    agentLeftXPixel = agentCenterPixel.x - robotSizePixel * cos(agentTheta - (robotSharpness * M_PI / 180));
+    agentLeftYPixel = agentCenterPixel.y + robotSizePixel * sin(agentTheta - (robotSharpness * M_PI / 180));
     Point agentLeft(agentLeftXPixel, agentLeftYPixel);
     //-- DR Line
     line(realWorld, agentDirection, agentRight, Scalar(robotBlue - clickedColorValue, robotGreen - clickedColorValue, robotRed - clickedColorValue), robotLineSize, 8, 0);

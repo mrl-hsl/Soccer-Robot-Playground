@@ -152,7 +152,7 @@ void Robot::update() {
     double globalVX = vX * cos(theta) + vY * sin(-theta);
     double globalVY = vY * cos(-theta) + vX * sin(theta);
     x = x + globalVX * refreshRate;
-    y = y - globalVY * refreshRate;
+    y = y + globalVY * refreshRate;
     // -- Rotation Part
     // cout << theta * 180 / M_PI << endl;
     theta += vTheta * refreshRate;
