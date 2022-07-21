@@ -102,11 +102,11 @@ int World::updateWindow() {
             switch(waitKey(1)) {
                 case (int('l')):
                     status.resetError();
-                    robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() + rotateSpeedValue);
+                    robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() - rotateSpeedValue);
                 break;
                 case (int('j')):
                     status.resetError();
-                    robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() - rotateSpeedValue);
+                    robot.setVelocity(robot.accessVX(), robot.accessVY(), robot.accessVTheta() + rotateSpeedValue);
                 break;
                 case (int('i')):
                     status.resetError();
