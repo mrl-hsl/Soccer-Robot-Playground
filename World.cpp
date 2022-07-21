@@ -72,6 +72,10 @@ World::World() {
     setMouseCallback("World", mouseAttacher, this);
     mouseFlag = 1;
     robot.storePosition(0, 0, 0, 0, 0, 0);
+
+    // Disable planner mode
+    plannerMode = false;
+
     updateWindow();
 }
 
@@ -137,7 +141,24 @@ int World::updateWindow() {
                     destroyAllWindows();
                     return 0;
                 break;
+                case (int('b')):
+                    plannerMode = !plannerMode;
+                break;
             }
+
+            if (plannerMode) {
+                if (planner.getState() == 1) {
+                    cv::Point3d robotPose;
+                    robotPose.x = robot.accessX();
+                    robotPose.y = robot.accessY();
+                    robotPose.z = robot.accessTheta();
+                    std::vector<double> vel = planner.update(robotPose);
+                    robot.setVelocity(vel[0], vel[1], vel[2]);
+                } else {
+                    robot.setVelocity(0, 0, 0);
+                }
+            }
+
             if ( mouseFlag == 0 || mouseFlag == -1 || mouseFlag == 2) {
                 robot.setVelocity(0, 0, 0);
             }
@@ -215,6 +236,12 @@ void World::Mouse(int event, int x, int y, int flags){
                     if (mouseDistance < clickAreaRadius) {
                         clickedColorValue = 100;
                         mouseFlag = -1;
+                    } else {
+                        if (plannerMode) {
+                            cv::Point2d meter = pixel2Meter(cv::Point2d(x, y));
+                            planner.setDestination(meter);
+                            planner.setState(1);
+                        }
                     }
                 break;
             }

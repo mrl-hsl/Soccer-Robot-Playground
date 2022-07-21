@@ -14,6 +14,7 @@ private:
     HelpWindow status;
     Mat realWorld;
     Planner planner;
+    bool plannerMode;
 public:
     World();
     int updateWindow();
