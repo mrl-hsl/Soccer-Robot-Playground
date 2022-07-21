@@ -267,3 +267,17 @@ void World::Mouse(int event, int x, int y, int flags){
         updateWindow();
     }
 }
+
+cv::Point2d World::pixel2Meter(cv::Point pixel) {
+    cv::Point2d out;
+    out.x = -(pixel.x - (windowLength * modelScale / 2)) / modelScale;
+    out.y = (pixel.y - (windowWidth * modelScale / 2)) / modelScale;
+    return out;
+}
+
+cv::Point World::meter2Pixel(cv::Point2d meter) {
+    cv::Point out;
+    out.x = (-meter.x + (windowLength * half)) * modelScale;;
+    out.y = (meter.y + (windowWidth * half)) * modelScale;;
+    return out;
+}

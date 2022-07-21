@@ -20,6 +20,8 @@ public:
     void create();
     static void mouseAttacher(int ,int ,int ,int ,void *);
     void Mouse(int ,int ,int ,int);
+    cv::Point2d pixel2Meter(cv::Point pixel);
+    cv::Point meter2Pixel(cv::Point2d meter);
 };
 
 #endif // WORLD_HPP
