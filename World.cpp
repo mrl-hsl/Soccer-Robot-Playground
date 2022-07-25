@@ -165,7 +165,6 @@ int World::updateWindow() {
             robot.update();
         } else {
             robot.resetCheck();
-            // robot.setVelocity(0, 0, 0);
             status.updateError(robot.error());
         }
     }
@@ -226,12 +225,6 @@ void World::Mouse(int event, int x, int y, int flags){
             switch(event){
                 //-- Click Left Button to Pick Agent
                 case EVENT_LBUTTONDOWN:
-                    // cout << "x : " << -(x - windowLength * half * modelScale) << " y : " << (y - windowWidth * half * modelScale) << endl;
-                    // cout << mouseDistance << endl;
-                    // cout << "x2 : " << sqrt(pow(robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2)) << endl;
-                    // cout << "y2 : " << sqrt(pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2)) << endl;
-                    // cout << robot.accessX() << endl;
-                    // cout << "--------------------" << endl;
                     mouseDistance = sqrt(pow(-robot.accessX() * modelScale - (x - windowLength * half * modelScale), 2) + pow(robot.accessY() * modelScale - (y - windowWidth * half * modelScale), 2));
                     if (mouseDistance < clickAreaRadius) {
                         clickedColorValue = 100;
@@ -257,12 +250,13 @@ void World::Mouse(int event, int x, int y, int flags){
                     clickedColorValue = 0;
                     mouseFlag = 1;
                 break;
-                case EVENT_MOUSEHWHEEL:
-                    if (getMouseWheelDelta(flags) < 0){
-                        robot.setTheta(robot.accessTheta() + mouseRotationValue * M_PI / 180);
-                    } else {
-                        robot.setTheta(robot.accessTheta() - mouseRotationValue * M_PI / 180);
-                    }
+                //-- Double Click Left Button to Decrease Theta
+                case EVENT_LBUTTONDOWN:
+                    robot.setTheta(robot.accessTheta() - mouseRotationValue * M_PI / 180);
+                break;
+                //-- Double Click Right Button to Increase Theta
+                case EVENT_RBUTTONDOWN:
+                    robot.setTheta(robot.accessTheta() + mouseRotationValue * M_PI / 180);
                 break;
                 case EVENT_MBUTTONDOWN:
                     mouseFlag = 0;
@@ -271,8 +265,8 @@ void World::Mouse(int event, int x, int y, int flags){
         } else if (mouseFlag == 0){
             switch(event){
                 case EVENT_MOUSEMOVE:
-                    robot.setX(x / modelScale);
-                    robot.setY(y / modelScale);
+                    robot.setX(-(x - windowLength * half * modelScale) / modelScale);
+                    robot.setY((y - windowWidth * half * modelScale) / modelScale);
                 break;
                 //-- Double Click Left Button to Decrease Theta
                 case EVENT_LBUTTONDOWN:
