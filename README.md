@@ -40,7 +40,7 @@
     it's screen nearby the own system.\
     But the impotant note is that the modeling system will upgrade only by agent's location in every frames !!
     
-  To get more information and explanation about the World Model , refer to the Document of project.
+  To get more information and explanation about the World Model , refer to the [Document](https://github.com/maze80/Soccer-Robot-Playground/blob/main/Document/Document.pdf) of project.
   
 
 
