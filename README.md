@@ -50,12 +50,6 @@ This project is completely based on [C++ language](https://cplusplus.com/) and w
 easier for understanding and help beginners to develop it much better.\
 Most part of the program is powered by OpenCV version 4 in C++ form. To make it install , you can use 
 this [orientation](https://dev.to/swervin/how-to-install-opencv-4-2-0-on-ubuntu-18-04-3i7l).
-   - All of the libraries are contained in this project :\
-    ```
-     <iostream> <sstream> <iomanip> <string> <chrono> <thread> <vector> <cmath> 
-    ```\
-  They are totaly exist in Config.hpp and declaring inside every headers.
-  
   
     
 # Program Headers
