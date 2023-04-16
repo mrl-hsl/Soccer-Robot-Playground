@@ -78,12 +78,16 @@ At first let's download the project from Github :
 $ sudo git clone https://github.com/mrl-hsl/Soccer-Robot-Playground.git
 ```
 
-There is a Makefile besides the headers and cpp files ; which will be used for compiling all of headers together.\
-In order to run the program just open the terminal in the exact directory and then :
+There is a CMakeLists inside the repo ; which will be used for compiling all of headers together.\
+In order to build the program just open the terminal in the exact directory and then :
 ```
-& make
+& mkdir build && cd build
 ```
-Automatically windows will appear and run !!\
+After that try to make headers :
+```
+$ cmake .. && make
+```
+with compiling the program you try to run "soccer-main"\
 And if you decide to remove the compiled files :
 ```
 & make clean
