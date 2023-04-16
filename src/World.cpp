@@ -1,4 +1,4 @@
-#include "World.hpp"
+#include "include/World.hpp"
 
 //---------------------
 //--| Model Configs |--
@@ -67,6 +67,7 @@ int clickedColorValue = 0;
 //-- Speed Increase/Decrease Value
 double moveSpeedValue = 0.2;
 double rotateSpeedValue = 0.4;
+
 
 //-- Spawning Configuration in Constructor
 World::World() {
@@ -176,8 +177,9 @@ int World::updateWindow() {
 void World::create() {
     //-- Creates Agent and Model
     field.Access().copyTo(realWorld);
-    modelWorld = Mat(modelWidth * modelScale, modelLength * modelScale, CV_8UC3, Scalar(fieldBGBlue, fieldBGGreen, fieldBGRed));
-    resize(modelWorld, modelWorld, Size(windowLength * modelScale * half, windowWidth * modelScale * half), INTER_LINEAR);
+    field.Access().copyTo(modelWorld);
+    // modelWorld = Mat(modelWidth * modelScale, modelLength * modelScale, CV_8UC3, Scalar(fieldBGBlue, fieldBGGreen, fieldBGRed));
+    // resize(modelWorld, modelWorld, Size(windowLength * modelScale * half, windowWidth * modelScale * half), INTER_LINEAR);
     //-------------
     //--| World |--
     //-------------
@@ -216,8 +218,8 @@ void World::create() {
     //-------------
     //--| Model |--
     //-------------
-    double modelCenterX = model.accessX() / (windowLength / modelLength);
-    double modelCenterY = model.accessY() / (windowWidth / modelWidth);
+    double modelCenterX = model.accessX();
+    double modelCenterY = model.accessY();
     double modelTheta = model.accessTheta();
     double modelDirectionX = modelCenterX - robotSize * cos(modelTheta);
     double modelDirectionY = modelCenterY - robotSize * sin(modelTheta);
