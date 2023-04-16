@@ -97,7 +97,7 @@ And if you decide to remove the compiled files :
 
 <p align="center">
 
-<a href="https://github.com/maze80"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a>
+<a href="https://github.com/mahdizynali"><img src="https://avatars.githubusercontent.com/u/104717705?s=120&v=4" width="100;" alt="Mahdi Zeinali"/><br /><sub><b>.:: Mahdi Zeinali ::.</b></sub></a>
 
 <a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a>
 
