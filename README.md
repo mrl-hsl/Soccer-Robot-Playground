@@ -1,12 +1,12 @@
-<h1 align="center">
+<!-- <h1 align="center">
   <br>
   <a href="https://github.com/maze80/Soccer-Robot-Playground"><img src="https://s6.uupload.ir/files/hsl_0dhk.png" alt="HSL" width="200"></a>
   <br>
   Humanoid Soccer Robot 
   <br>
-</h1>
+</h1> -->
 
-<b><h4 align="center">.:: Soccer-Robot-Playground ::.</h4></b>
+<b><h1 align="center">.:: Soccer-Robot-Playground ::.</h4></b>
 
 <p align="center">
 <a href="https://github.com/maze80/Soccer-Robot-Playground"><img src="https://img.shields.io/badge/Version-1.2.1-brightgreen" alt="HSL" width="100"></a>
