@@ -93,7 +93,7 @@ And if you decide to remove the compiled files :
 & make clean
 ```
 
-# Developers
+<!-- # Developers
 
 <p align="center">
 
@@ -101,5 +101,5 @@ And if you decide to remove the compiled files :
 
 <a href="https://github.com/RamtinKosari"><img src="https://avatars.githubusercontent.com/u/106661724?s=120&v=4" width="100;" alt="Ramtin Kosari"/><br /><sub><b>.:: Ramtin Kosari ::.</b></sub></a>
 
-</p>
+</p> -->
 
